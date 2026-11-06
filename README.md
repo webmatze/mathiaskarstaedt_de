@@ -87,21 +87,39 @@ Failures are recorded on the project and shown in the admin rather than retried 
 
 ## Deployment
 
-Kamal to a single Hetzner VPS. Before the first deploy, set the server IP in
-`config/deploy.yml` and point the DNS A/AAAA records at it.
+Kamal to the Hetzner server that already runs `elbcasts.dev`, `pagebee.io` and
+`headlessbee.com`. They share one `kamal-proxy`, which terminates TLS and routes by host,
+so this app only claims `mathiaskarstaedt.de` and `www.mathiaskarstaedt.de`. Both already
+resolve to the server, so Let's Encrypt issues the certificate on the first deploy.
 
-```bash
-bin/kamal setup      # first time
+The server is addressed over Tailscale (`100.106.129.53`, public `46.224.108.246`), and the
+image is built on the server itself — the Mac is arm64 and cross-building a Rails image with
+native gems under emulation is slow.
+
+Set up once:
+
+```sh
+cp .env.example .env     # KAMAL_REGISTRY_PASSWORD = GitHub PAT with write:packages
+direnv allow
+```
+
+`config/master.key` stays out of git and is read straight from disk by `.kamal/secrets`.
+
+```sh
+bin/kamal setup      # first deploy
 bin/kamal deploy     # afterwards
 bin/kamal logs -f
 bin/kamal console
+bin/kamal proxy logs -f   # TLS / routing
 ```
+
+Commit before deploying — Kamal uses the git SHA as the image version.
 
 Everything that is not in git lives in `/rails/storage` on the server, mounted from the
 `mathiaskarstaedt_storage` volume: the SQLite databases (app, queue, cache, cable) and the
 Active Storage uploads. That one volume is the entire backup surface.
 
-```bash
+```sh
 bin/backup           # → backups/mathiaskarstaedt-YYYYMMDD-HHMM.tar.gz
 ```
 

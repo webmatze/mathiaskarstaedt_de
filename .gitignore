@@ -7,8 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore all environment files, but keep the example and the direnv loader.
 /.env*
+!/.env.example
+!/.envrc
 
 # Ignore all logfiles and tempfiles.
 /log/*
