@@ -1,0 +1,86 @@
+<%= form_with model: [ :admin, project ], class: "flex flex-col gap-6" do |form| %>
+  <% if project.errors.any? %>
+    <div class="rounded-2xl border border-kind-mobile/40 bg-surface p-5">
+      <ul class="flex flex-col gap-1 text-sm text-kind-mobile">
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.basics") do %>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :name %>
+      <%= admin_field form, :slug, hint: t("activerecord.attributes.project.slug") %>
+      <%= admin_field form, :kind, choices: ProjectKind.all.map { |kind| [ kind.label, kind.key ] } %>
+      <%= admin_field form, :status, choices: Project::STATUSES.map { |status| [ t("project_statuses.#{status}"), status ] } %>
+    </div>
+    <%= admin_field form, :tagline, as: :text_area, rows: 2 %>
+    <%= admin_field form, :description, as: :text_area, rows: 10, hint: "Markdown" %>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.fact_sheet") do %>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :platforms %>
+      <%= admin_field form, :tech_stack %>
+      <%= admin_field form, :price %>
+      <%= admin_field form, :formats %>
+      <%= admin_field form, :license %>
+      <%= admin_field form, :last_activity_at, as: :date_field, value: project.last_activity_at&.to_date %>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.presentation") do %>
+    <div class="flex flex-wrap gap-6">
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :published, class: "size-4" %> <%= Project.human_attribute_name(:published) %>
+      </label>
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :featured, class: "size-4" %> <%= Project.human_attribute_name(:featured) %>
+      </label>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :featured_position, as: :number_field %>
+      <%= admin_field form, :homepage_url, as: :url_field %>
+    </div>
+    <%= admin_field form, :source_url, as: :url_field %>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.github") do %>
+    <%= admin_field form, :github_repo, placeholder: "webmatze/krazoom",
+          hint: project.github_sync_error.presence %>
+    <div class="flex flex-col gap-2">
+      <span class="<%= admin_label_class %>"><%= Project.human_attribute_name(:locked_fields) %></span>
+      <div class="flex flex-wrap gap-4 text-sm">
+        <% Github::RepositorySync::SYNCABLE_FIELDS.each do |field| %>
+          <label class="flex items-center gap-2">
+            <%= check_box_tag "project[locked_fields][]", field, project.locked?(field), id: "locked_#{field}", class: "size-4" %>
+            <%= Project.human_attribute_name(field) %>
+          </label>
+        <% end %>
+      </div>
+      <%= hidden_field_tag "project[locked_fields][]", "", id: nil %>
+      <p class="text-xs text-ink-faint">Checked fields are never overwritten by a GitHub sync.</p>
+    </div>
+  <% end %>
+
+  <%= render "admin/projects/translations", form: form, record: project %>
+
+  <%= render "admin/projects/nested", form: form, association: :features,
+        title: t("admin.projects.form.features"), fields: %i[ title body position ] %>
+  <%= render "admin/projects/nested", form: form, association: :screenshots,
+        title: t("admin.projects.form.screenshots"), fields: %i[ image caption video_url hero position ] %>
+  <%= render "admin/projects/nested", form: form, association: :updates,
+        title: t("admin.projects.form.updates"), fields: %i[ version title body released_on state url ] %>
+  <%= render "admin/projects/nested", form: form, association: :downloads,
+        title: t("admin.projects.form.downloads"), fields: %i[ label url version file_type architecture byte_size featured position ] %>
+  <%= render "admin/projects/nested", form: form, association: :links,
+        title: t("admin.projects.form.links"), fields: %i[ label url display_url position ] %>
+  <%= render "admin/projects/related", form: form, project: project %>
+
+  <div class="flex gap-3">
+    <%= form.submit t("admin.projects.form.save"), class: "inline-flex min-h-12 cursor-pointer items-center rounded-[10px] bg-accent-themed px-6 font-semibold" %>
+    <%= link_to t("admin.nav.projects"), admin_projects_path, class: "inline-flex min-h-12 items-center rounded-[10px] border border-line-bright px-5 font-medium" %>
+  </div>
+<% end %>

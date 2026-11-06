@@ -1,0 +1,13 @@
+<% content_for :title, "#{t("admin.github_imports.new.title")} · #{t("admin.nav.title")}" %>
+<div class="max-w-[520px]">
+  <h1 class="pb-3 font-display text-4xl font-bold tracking-[-0.02em]"><%= t("admin.github_imports.new.title") %></h1>
+  <p class="pb-8 text-ink-soft"><%= t("admin.github_imports.new.hint") %></p>
+
+  <%= form_with url: admin_github_imports_path, class: "flex flex-col gap-5" do %>
+    <div class="flex flex-col">
+      <%= label_tag :repo, t("admin.github_imports.new.repo"), class: admin_label_class %>
+      <%= text_field_tag :repo, params[:repo], placeholder: "webmatze/krazoom", class: admin_field_class, autofocus: true %>
+    </div>
+    <%= submit_tag t("admin.github_imports.new.submit"), class: "self-start inline-flex min-h-12 cursor-pointer items-center rounded-[10px] bg-accent-themed px-6 font-semibold" %>
+  <% end %>
+</div>

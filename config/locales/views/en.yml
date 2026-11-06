@@ -1,0 +1,81 @@
+en:
+  site:
+    name: mathiaskarstaedt.de
+    monogram: mk
+    owner: Mathias Karstädt
+    tagline: Web apps, Mac apps, CLI tools and games. Built in Hamburg.
+  layout:
+    main_navigation: Main navigation
+    favourites: Favourites
+    all_projects: All projects
+    elbcasts: Elbcasts
+    about: About
+    github: GitHub
+    skip_to_content: Skip to content
+  footer:
+    copyright: "© %{year} Mathias Karstädt · Hamburg"
+    github: GitHub
+    itch: itch.io
+    youtube: YouTube
+    imprint: Imprint
+    privacy: Privacy
+  pages:
+    home:
+      terminal_prompt: "~/projects $ ls --sort=new"
+      headline: Web apps, Mac apps, CLI tools and games. Built in Hamburg.
+      intro: I'm Mathias “Matze” Karstädt, a Ruby on Rails developer. Evenings and weekends I build the things I want to use myself — all of it in one place, from a comic reader for macOS to a 3D engine in pure Ruby.
+      view_projects: View projects
+      screencasts: Screencasts on Elbcasts
+      legend_title: Project types
+      legend_label: Project types
+      favourites_title: Current favourites
+      favourites_subtitle: What I most enjoy working on right now.
+      latest_title: Latest projects
+      latest_subtitle: Sorted by last update
+      archive_note: Older experiments, gems and games live in the archive on GitHub and itch.io.
+      all_repositories: All repositories ↗
+      games_on_itch: Games on itch.io ↗
+      about_headline_html: Day job Rails.<br>Nights everything else.
+      about_body: >-
+        At work I build Rails backends running on Kubernetes. In my own time I chase whatever has my attention: native Mac apps in Swift, terminal tools in Rust and Crystal, games with DragonRuby — and screencasts about all of it on Elbcasts.
+    imprint:
+      title: Imprint
+    privacy:
+      title: Privacy
+  projects:
+    index:
+      title: All projects
+      subtitle: Everything I have built and published, newest first.
+    filter:
+      label: Filter by project type
+      all: All
+    empty: Nothing new in this category right now — have a look at the GitHub archive.
+    card:
+      details: Details →
+    show:
+      breadcrumb_root: "~/projects"
+      screenshots: Screenshots
+      screenshot_placeholder: "[screenshot coming]"
+      download_for: Download for %{platform}
+      download: Download
+      visit_website: Visit website
+      source_code: Source code
+      about_title: What it is
+      features_title: Features
+      updates_title: Updates
+      all_releases: All releases on GitHub ↗
+      planned: Planned
+      latest: Latest
+      fact_sheet: Fact sheet
+      fact_sheet_label: Fact sheet
+      links: Links
+      related_title: Related projects
+      fields:
+        platform: Platform
+        tech: Tech
+        price: Price
+        formats: Formats
+        license: License
+        last_update: Last update
+        stars: GitHub stars
+      download_note: Older versions and checksums are in the GitHub releases.

@@ -1,0 +1,14 @@
+<div class="flex flex-wrap items-end gap-4 rounded-xl border border-line bg-canvas p-4" data-nested-form-target="row">
+  <div class="flex min-w-[240px] flex-1 flex-col">
+    <%= nested.label :related_project_id, class: admin_label_class %>
+    <%= nested.select :related_project_id, choices, { include_blank: true }, class: admin_field_class %>
+  </div>
+  <div class="flex w-28 flex-col">
+    <%= nested.label :position, class: admin_label_class %>
+    <%= nested.number_field :position, class: admin_field_class %>
+  </div>
+  <label class="flex cursor-pointer items-center gap-2 py-3 text-xs text-ink-meta">
+    <%= nested.check_box :_destroy, class: "size-4" %>
+    <%= t("admin.projects.form.remove") %>
+  </label>
+</div>

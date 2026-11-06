@@ -1,0 +1,5 @@
+<% content_for :title, page_title(t("pages.imprint.title")) %>
+<section class="page flex max-w-[760px] flex-col gap-6 py-20">
+  <h1 class="font-display text-[clamp(36px,5vw,56px)] font-extrabold tracking-[-0.03em]"><%= t("pages.imprint.title") %></h1>
+  <div class="prose-project flex flex-col gap-4 text-[17px] text-ink-body"><%= markdown site_profile.localized_imprint_body %></div>
+</section>

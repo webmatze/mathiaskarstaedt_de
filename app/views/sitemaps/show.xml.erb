@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc><%= root_url %></loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc><%= projects_url %></loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <% @projects.each do |project| %>
+    <url>
+      <loc><%= project_url(project) %></loc>
+      <lastmod><%= project.updated_at.to_date.iso8601 %></lastmod>
+    </url>
+  <% end %>
+</urlset>

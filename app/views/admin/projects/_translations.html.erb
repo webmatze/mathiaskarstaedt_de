@@ -1,0 +1,8 @@
+<%# The German copy for the record's own fields, next to the English above. %>
+<fieldset class="flex flex-col gap-5 rounded-2xl border border-line-strong bg-surface p-6">
+  <legend class="px-2 font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= t("admin.projects.form.translations") %></legend>
+  <p class="text-sm text-ink-faint"><%= t("admin.projects.form.translation_hint") %></p>
+  <div class="flex flex-col gap-4">
+    <%= admin_translation_fields form, rows: 4 %>
+  </div>
+</fieldset>

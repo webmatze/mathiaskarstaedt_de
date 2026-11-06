@@ -1,0 +1,52 @@
+krazoom:
+  slug: krazoom
+  name: Krazoom
+  kind: desktop
+  status: active
+  published: true
+  featured: true
+  featured_position: 1
+  platforms: macOS
+  tech_stack: Swift · SwiftUI
+  price: Free
+  license: Proprietary
+  homepage_url: https://krazoom.app/
+  source_url: https://github.com/webmatze/krazoom
+  github_repo: webmatze/krazoom
+  last_activity_at: <%= Date.new(2026, 10, 20) %>
+  tagline: A native comic reader for macOS.
+  description: "Opens CBZ, CBR, PDF and image folders with no import step."
+  translations: <%= { de: { tagline: "Ein nativer Comic-Reader für macOS.",
+                           description: "Öffnet CBZ, CBR, PDF und Bildordner ohne Importschritt." } }.to_json %>
+
+smith:
+  slug: smith
+  name: smith
+  kind: cli
+  status: active
+  published: true
+  featured: true
+  featured_position: 2
+  tech_stack: Crystal
+  github_repo: webmatze/smith
+  last_activity_at: <%= Date.new(2026, 10, 28) %>
+  tagline: A local-first harness for LLM agents.
+  translations: <%= { de: { tagline: "Ein local-first Harness für LLM-Agenten." } }.to_json %>
+
+pagebee:
+  slug: pagebee
+  name: PageBee
+  kind: webapp
+  status: active
+  published: true
+  last_activity_at: <%= Date.new(2026, 11, 1) %>
+  tagline: A no-code website builder.
+
+draft:
+  slug: secret-thing
+  name: Secret Thing
+  kind: game
+  status: planned
+  published: false
+  last_activity_at: <%= Date.new(2026, 11, 4) %>
+  tagline: Not ready yet.

@@ -1,0 +1,10 @@
+<div class="page py-0 pb-18">
+  <div class="flex flex-wrap items-center gap-x-7 gap-y-3 border-y border-line py-5">
+    <h2 id="legend" class="font-mono text-xs font-medium tracking-[0.08em] uppercase text-ink-faint"><%= t("pages.home.legend_title") %></h2>
+    <% kinds.each do |kind| %>
+      <span class="inline-flex items-center gap-2 text-sm text-ink-dim">
+        <%= kind_swatch kind %><%= kind.label %>
+      </span>
+    <% end %>
+  </div>
+</div>

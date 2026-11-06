@@ -1,0 +1,12 @@
+<footer class="border-t border-line">
+  <div class="page flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-ink-faint">
+    <span><%= t("footer.copyright", year: Date.current.year) %></span>
+    <div class="flex flex-wrap gap-x-5 gap-y-1">
+      <%= external_link_to t("footer.github"), "https://github.com/webmatze", class: "text-ink-soft hover:text-ink-bright" %>
+      <%= external_link_to t("footer.itch"), "https://webmatze.itch.io", class: "text-ink-soft hover:text-ink-bright" %>
+      <%= external_link_to t("footer.youtube"), "https://www.youtube.com/@MathiasKarst%C3%A4dt", class: "text-ink-soft hover:text-ink-bright" %>
+      <%= link_to t("footer.imprint"), imprint_path, class: "text-ink-soft hover:text-ink-bright" %>
+      <%= link_to t("footer.privacy"), privacy_path, class: "text-ink-soft hover:text-ink-bright" %>
+    </div>
+  </div>
+</footer>

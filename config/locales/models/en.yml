@@ -1,0 +1,82 @@
+en:
+  activerecord:
+    models:
+      project: Project
+      project/feature: Feature
+      project/screenshot: Screenshot
+      project/update: Update
+      project/download: Download
+      project/link: Link
+      project_relation: Related project
+      site_profile: Site
+    attributes:
+      project:
+        name: Name
+        slug: Slug
+        tagline: Tagline
+        description: Description
+        kind: Type
+        status: Status
+        platforms: Platforms
+        tech_stack: Tech stack
+        price: Price
+        license: License
+        formats: Formats
+        published: Published
+        featured: Featured
+        featured_position: Featured position
+        position: Position
+        last_activity_at: Last activity
+        homepage_url: Website URL
+        source_url: Source code URL
+        github_repo: GitHub repository
+        locked_fields: Protected from GitHub sync
+      project/feature:
+        title: Title
+        body: Text
+        position: Position
+      project/screenshot:
+        image: Image
+        caption: Caption
+        video_url: Video URL
+        hero: Hero image
+        position: Position
+      project/update:
+        version: Version
+        title: Title
+        body: Text
+        released_on: Released on
+        state: State
+        url: URL
+      project/download:
+        label: Label
+        url: URL
+        version: Version
+        file_type: File type
+        architecture: Architecture
+        byte_size: Size in bytes
+        featured: Primary download
+      project/link:
+        label: Label
+        url: URL
+        display_url: Displayed URL
+      site_profile:
+        terminal_prompt: Terminal prompt
+        hero_headline: Hero headline
+        hero_intro: Hero intro
+        about_headline: About headline
+        about_body: About text
+        skills: Skills (comma separated)
+        accent_color: Accent colour
+        imprint_body: Imprint
+        privacy_body: Privacy policy
+    errors:
+      models:
+        project:
+          attributes:
+            slug:
+              invalid_slug: must be lowercase letters, numbers and dashes only
+        project_relation:
+          attributes:
+            related_project:
+              itself: cannot be the project itself

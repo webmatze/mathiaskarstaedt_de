@@ -1,0 +1,11 @@
+<%# Links, not buttons: the filter works with JavaScript switched off. %>
+<div role="group" aria-label="<%= t("projects.filter.label") %>" class="flex flex-wrap gap-2">
+  <% [ nil, *kinds ].each do |kind| %>
+    <% on = (kind&.key == selected&.key) %>
+    <%= link_to(kind ? kind.label : t("projects.filter.all"),
+          project_kind_path(kind),
+          "aria-current": on ? "true" : nil,
+          class: [ "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium transition-colors",
+                   on ? "bg-accent-themed border-accent-themed" : "border-line-bright text-ink-dim hover:border-line-muted" ]) %>
+  <% end %>
+</div>

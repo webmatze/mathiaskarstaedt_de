@@ -1,0 +1,23 @@
+<div class="flex flex-col gap-4 rounded-xl border border-line bg-canvas p-4" data-nested-form-target="row">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <% fields.each do |field| %>
+      <%= admin_nested_field nested, field %>
+    <% end %>
+  </div>
+
+  <% if nested.object.class.translatable_fields.any? %>
+    <details class="rounded-lg border border-line px-3 py-2">
+      <summary class="cursor-pointer font-mono text-xs tracking-[0.06em] uppercase text-ink-meta"><%= t("admin.projects.form.german") %></summary>
+      <div class="grid gap-4 pt-3 sm:grid-cols-2">
+        <%= admin_translation_fields nested %>
+      </div>
+    </details>
+  <% end %>
+
+  <div class="flex justify-end">
+    <label class="flex cursor-pointer items-center gap-2 text-xs text-ink-meta">
+      <%= nested.check_box :_destroy, class: "size-4" %>
+      <%= t("admin.projects.form.remove") %>
+    </label>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<%
+  facts = {
+    t("projects.show.fields.platform")    => project.platforms,
+    t("projects.show.fields.tech")        => project.tech_stack,
+    t("projects.show.fields.price")       => project.price,
+    t("projects.show.fields.formats")     => project.formats,
+    t("projects.show.fields.license")     => project.license,
+    t("projects.show.fields.stars")       => project.github_stars&.then { |n| number_with_delimiter(n) },
+    t("projects.show.fields.last_update") => month_year(project.last_activity_at)
+  }.compact_blank
+  download = project.featured_download
+%>
+<aside aria-label="<%= t("projects.show.fact_sheet_label") %>" class="flex min-w-0 flex-[1_1_320px] flex-col gap-4">
+  <% if facts.any? %>
+    <div class="overflow-hidden rounded-2xl border border-line-strong bg-surface">
+      <h2 class="m-0 border-b border-line-strong px-5.5 py-4.5 font-mono text-xs font-medium tracking-[0.08em] uppercase text-ink-meta"><%= t("projects.show.fact_sheet") %></h2>
+      <dl class="m-0 grid grid-cols-[auto_1fr] gap-x-4 px-5.5 pt-1.5 pb-2.5 text-[15px]">
+        <% facts.each_with_index do |(label, value), index| %>
+          <% border = index == facts.size - 1 ? "" : "border-b border-line" %>
+          <dt class="py-3 text-ink-meta <%= border %>"><%= label %></dt>
+          <dd class="m-0 py-3 text-right <%= border %>"><%= value %></dd>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+
+  <% if download %>
+    <div class="flex flex-col gap-3.5 rounded-2xl border border-line-strong bg-surface p-5.5">
+      <h2 class="m-0 font-mono text-xs font-medium tracking-[0.08em] uppercase text-ink-meta"><%= t("projects.show.download") %></h2>
+      <div class="flex items-center gap-3.5">
+        <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-[10px]"
+              style="background: <%= project.project_kind.tint %>; color: <%= accent %>">
+          <%= render "shared/download_icon" %>
+        </span>
+        <span class="flex flex-col leading-[1.35]">
+          <span class="font-semibold"><%= [ project.name, download.version ].compact_blank.join(" ") %></span>
+          <% if download.meta_line %>
+            <span class="font-mono text-xs text-ink-meta"><%= download.meta_line %></span>
+          <% end %>
+        </span>
+      </div>
+      <%= external_link_to t("projects.show.download"), download.url,
+            class: "inline-flex min-h-12 items-center justify-center gap-2.5 rounded-[10px] font-semibold text-canvas",
+            style: "background: #{accent}" %>
+      <% if project.github_connected? %>
+        <p class="m-0 text-[13px] text-ink-meta"><%= t("projects.show.download_note") %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if project.links.any? %>
+    <div class="flex flex-col gap-1 rounded-2xl border border-line-strong p-5.5">
+      <h2 class="mb-2 font-mono text-xs font-medium tracking-[0.08em] uppercase text-ink-meta"><%= t("projects.show.links") %></h2>
+      <% project.links.each do |link| %>
+        <%= external_link_to link.url, class: "flex min-h-11 items-center justify-between" do %>
+          <span><%= link.localized_label %></span>
+          <span class="text-ink-meta"><%= link.display_url %> ↗</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</aside>

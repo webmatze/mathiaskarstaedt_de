@@ -1,0 +1,91 @@
+<% content_for :title, page_title(nil) %>
+
+<%# HERO %>
+<section class="page flex flex-col gap-7 pt-[clamp(56px,9vw,120px)] pb-16">
+  <p class="font-mono text-sm text-accent-themed"><%= site_profile.localized_terminal_prompt.presence || t("pages.home.terminal_prompt") %></p>
+  <h1 class="max-w-[1080px] font-display text-[clamp(44px,7.4vw,104px)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance">
+    <%= site_profile.localized_hero_headline.presence || t("pages.home.headline") %>
+  </h1>
+  <p class="max-w-[680px] text-[clamp(17px,1.6vw,20px)] text-ink-soft text-pretty">
+    <%= site_profile.localized_hero_intro.presence || t("pages.home.intro") %>
+  </p>
+  <div class="flex flex-wrap gap-3 pt-2">
+    <a href="#favourites" class="inline-flex min-h-12 items-center gap-2.5 rounded-[10px] bg-accent-themed px-[22px] font-semibold">
+      <%= t("pages.home.view_projects") %>
+      <%= render "shared/arrow_down_icon" %>
+    </a>
+    <%= external_link_to t("pages.home.screencasts"), "https://elbcasts.dev/", class: "inline-flex min-h-12 items-center gap-2.5 rounded-[10px] border border-line-bright px-[22px] font-medium" %>
+  </div>
+</section>
+
+<%# TYPE LEGEND %>
+<section aria-labelledby="legend">
+  <%= render "projects/kind_legend", kinds: @kinds %>
+</section>
+
+<%# FAVOURITES %>
+<% if @featured_projects.any? %>
+  <section id="favourites" aria-labelledby="favourites-heading" class="page flex flex-col gap-7 pb-24">
+    <div class="flex flex-wrap items-baseline justify-between gap-3">
+      <h2 id="favourites-heading" class="font-display text-[clamp(32px,4vw,48px)] font-bold tracking-[-0.02em]"><%= t("pages.home.favourites_title") %></h2>
+      <p class="text-[15px] text-ink-faint"><%= t("pages.home.favourites_subtitle") %></p>
+    </div>
+
+    <div class="flex flex-wrap gap-5">
+      <%= render "projects/featured_hero", project: @featured_projects.first %>
+
+      <% if @featured_projects.size > 1 %>
+        <div class="flex min-w-0 flex-[1_1_380px] flex-col gap-5">
+          <% @featured_projects.drop(1).each do |project| %>
+            <%= render "projects/featured_compact", project: project %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%# ALL PROJECTS %>
+<section id="projects" aria-labelledby="projects-heading" class="border-y border-line bg-band">
+  <div class="page flex flex-col gap-7 pt-22 pb-24">
+    <div class="flex flex-wrap items-baseline justify-between gap-3">
+      <h2 id="projects-heading" class="font-display text-[clamp(32px,4vw,48px)] font-bold tracking-[-0.02em]"><%= t("pages.home.latest_title") %></h2>
+      <p class="text-[15px] text-ink-faint"><%= t("pages.home.latest_subtitle") %></p>
+    </div>
+
+    <%= render "projects/kind_filter", kinds: @kinds, selected: nil %>
+
+    <% if @projects.any? %>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] gap-4">
+        <%= render @projects %>
+      </div>
+    <% else %>
+      <%= render "projects/empty" %>
+    <% end %>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line-strong px-7 py-6">
+      <p class="text-ink-soft"><%= t("pages.home.archive_note") %></p>
+      <div class="flex flex-wrap gap-2.5">
+        <%= external_link_to t("pages.home.all_repositories"), "https://github.com/webmatze?tab=repositories", class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4.5 font-medium" %>
+        <%= external_link_to t("pages.home.games_on_itch"), "https://webmatze.itch.io", class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4.5 font-medium" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ABOUT %>
+<section id="about" aria-labelledby="about-heading" class="page flex flex-wrap gap-12 py-24">
+  <h2 id="about-heading" class="m-0 flex-[1_1_320px] font-display text-[clamp(32px,4vw,48px)] leading-[1.05] font-bold tracking-[-0.02em]">
+    <%= site_profile.localized_about_headline.presence&.then { |headline| simple_format(headline, {}, wrapper_tag: "span") } || sanitize(t("pages.home.about_headline_html"), tags: %w[br]) %>
+  </h2>
+  <div class="flex flex-[2_1_480px] flex-col gap-4.5 text-[17px] text-ink-soft">
+    <p><%= site_profile.localized_about_body.presence || t("pages.home.about_body") %></p>
+    <% if site_profile.skill_list.any? %>
+      <div class="flex flex-wrap gap-2">
+        <% site_profile.skill_list.each do |skill| %>
+          <span class="rounded-lg border border-line-strong bg-surface-raised px-3 py-1.5 font-mono text-[13px] text-ink-dim"><%= skill %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>

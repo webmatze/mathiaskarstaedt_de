@@ -1,0 +1,12 @@
+_fixture:
+  model_class: Project::Download
+
+krazoom_dmg:
+  project: krazoom
+  label: Download for macOS
+  url: https://github.com/webmatze/krazoom/releases/download/1.2.0/Krazoom.dmg
+  version: 1.2.0
+  file_type: dmg
+  architecture: Apple Silicon
+  byte_size: 14680064
+  featured: true

@@ -1,0 +1,17 @@
+<% content_for :title, page_title(@kind ? @kind.label : t("projects.index.title")) %>
+
+<section class="page flex flex-col gap-7 pt-16 pb-12">
+  <h1 class="font-display text-[clamp(36px,5vw,64px)] font-extrabold tracking-[-0.03em]"><%= t("projects.index.title") %></h1>
+  <p class="max-w-[680px] text-[clamp(17px,1.6vw,20px)] text-ink-soft text-pretty"><%= t("projects.index.subtitle") %></p>
+  <%= render "projects/kind_filter", kinds: @kinds, selected: @kind %>
+</section>
+
+<section class="page pb-24">
+  <% if @projects.any? %>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] gap-4">
+      <%= render @projects %>
+    </div>
+  <% else %>
+    <%= render "projects/empty" %>
+  <% end %>
+</section>

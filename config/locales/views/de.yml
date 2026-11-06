@@ -1,0 +1,81 @@
+de:
+  site:
+    name: mathiaskarstaedt.de
+    monogram: mk
+    owner: Mathias Karstädt
+    tagline: Web-Apps, Mac-Apps, CLI-Tools und Spiele. Gebaut in Hamburg.
+  layout:
+    main_navigation: Hauptnavigation
+    favourites: Favoriten
+    all_projects: Alle Projekte
+    elbcasts: Elbcasts
+    about: Über mich
+    github: GitHub
+    skip_to_content: Zum Inhalt springen
+  footer:
+    copyright: "© %{year} Mathias Karstädt · Hamburg"
+    github: GitHub
+    itch: itch.io
+    youtube: YouTube
+    imprint: Impressum
+    privacy: Datenschutz
+  pages:
+    home:
+      terminal_prompt: "~/projekte $ ls --sort=neu"
+      headline: Web-Apps, Mac-Apps, CLI-Tools und Spiele. Gebaut in Hamburg.
+      intro: Ich bin Mathias „Matze“ Karstädt, Ruby-on-Rails-Entwickler. Abends und am Wochenende entstehen Dinge, die ich selbst benutzen will – hier ist alles an einem Ort, vom Comic-Reader für macOS bis zur 3D-Engine in purem Ruby.
+      view_projects: Projekte ansehen
+      screencasts: Screencasts auf Elbcasts
+      legend_title: Projekttypen
+      legend_label: Nach Projekttyp
+      favourites_title: Aktuelle Lieblinge
+      favourites_subtitle: Woran ich gerade am liebsten arbeite.
+      latest_title: Neueste Projekte
+      latest_subtitle: Sortiert nach letztem Update
+      archive_note: Ältere Experimente, Gems und Spiele liegen im Archiv auf GitHub und itch.io.
+      all_repositories: Alle Repositories ↗
+      games_on_itch: Spiele auf itch.io ↗
+      about_headline_html: Tagsüber Rails.<br>Nachts alles andere.
+      about_body: >-
+        Beruflich baue ich als Senior-Rails-Entwickler Backends, die auf Kubernetes laufen. Privat probiere ich aus, was mich gerade reizt: native Mac-Apps in Swift, Terminal-Tools in Rust und Crystal, Spiele mit DragonRuby – und Screencasts darüber auf Elbcasts.
+    imprint:
+      title: Impressum
+    privacy:
+      title: Datenschutz
+  projects:
+    index:
+      title: Alle Projekte
+      subtitle: Alles, was ich gebaut und veröffentlicht habe – das Neueste zuerst.
+    filter:
+      label: Nach Projekttyp filtern
+      all: Alle
+    empty: In dieser Kategorie ist gerade nichts Neues – schau ins GitHub-Archiv.
+    card:
+      details: Details →
+    show:
+      breadcrumb_root: "~/projekte"
+      screenshots: Screenshots
+      screenshot_placeholder: "[Screenshot folgt]"
+      download_for: Für %{platform} laden
+      download: Herunterladen
+      visit_website: Website besuchen
+      source_code: Quellcode
+      about_title: Worum es geht
+      features_title: Funktionen
+      updates_title: Updates
+      all_releases: Alle Releases auf GitHub ↗
+      planned: Geplant
+      latest: Neueste
+      fact_sheet: Steckbrief
+      fact_sheet_label: Steckbrief
+      links: Links
+      related_title: Verwandte Projekte
+      fields:
+        platform: Plattform
+        tech: Technik
+        price: Preis
+        formats: Formate
+        license: Lizenz
+        last_update: Letztes Update
+        stars: GitHub-Sterne
+      download_note: Ältere Versionen und Prüfsummen findest du in den GitHub-Releases.

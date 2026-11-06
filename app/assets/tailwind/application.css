@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* Design tokens — taken from the design artifacts (Main.dc.html / Krazoom.dc.html).
+   Names describe the role, not the hex value, so a repaint happens here and nowhere else. */
+@theme {
+  /* Surfaces, darkest to lightest */
+  --color-canvas: #0E1113;
+  --color-band: #12161A;
+  --color-surface: #161A1E;
+  --color-surface-raised: #181D21;
+  --color-inset: #1E2328;
+
+  /* Hairlines */
+  --color-line: #22272C;
+  --color-line-strong: #262C32;
+  --color-line-bright: #333A41;
+  --color-line-muted: #4A525A;
+
+  /* Text */
+  --color-ink: #ECEEF0;
+  --color-ink-bright: #FFFFFF;
+  --color-ink-body: #C7CDD3;
+  --color-ink-soft: #B4BCC4;
+  --color-ink-dim: #D2D7DC;
+  --color-ink-meta: #9AA3AB;
+  --color-ink-faint: #8C959E;
+  --color-ink-ghost: #6B747D;
+
+  /* One colour per project kind — the thing that makes the type readable at a glance */
+  --color-kind-website: #7CC4FF;
+  --color-kind-webapp: #5EE0C0;
+  --color-kind-desktop: #FFB35C;
+  --color-kind-mobile: #FF8FB1;
+  --color-kind-cli: #D4F25A;
+  --color-kind-game: #B79CFF;
+  --color-kind-library: #C9CED3;
+
+  /* Accent — overridable per site profile via the --accent custom property */
+  --color-accent: #D4F25A;
+  --color-accent-ink: #0E1113;
+
+  /* Status */
+  --color-status-active: #5EE0C0;
+
+  --font-display: "Bricolage Grotesque", "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --container-page: 1240px;
+}
+
+/* The accent is themeable at runtime from SiteProfile, so everything that uses it
+   reads the custom property rather than the compiled token. */
+@layer base {
+  :root {
+    --accent: var(--color-accent);
+    --accent-ink: var(--color-accent-ink);
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-ink-bright);
+  }
+}
+
+@utility page {
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+@utility text-accent-themed {
+  color: var(--accent);
+}
+
+@utility bg-accent-themed {
+  background-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+@utility border-accent-themed {
+  border-color: var(--accent);
+}

@@ -1,0 +1,22 @@
+<%# A screenshot inside a stylised window frame, or the placeholder from the
+    design when a project has no image yet. %>
+<% screenshot = project.hero_screenshot %>
+<div class="relative flex min-h-[360px] items-end justify-center border-b border-line-strong px-9 pt-9"
+     style="background: color-mix(in srgb, <%= project.project_kind.color %> 8%, var(--color-canvas))">
+  <% if screenshot&.image&.attached? %>
+    <%= image_tag screenshot.image.variant(:large),
+          alt: screenshot.localized_caption.presence || project.name,
+          loading: "lazy",
+          class: "w-full max-w-[560px] rounded-t-xl shadow-[0_30px_60px_rgba(0,0,0,0.45)]" %>
+  <% else %>
+    <div class="w-full max-w-[560px] overflow-hidden rounded-t-xl bg-[#F4EFE6] shadow-[0_30px_60px_rgba(0,0,0,0.45)]" aria-hidden="true">
+      <div class="flex h-[30px] items-center gap-[7px] bg-[#E4DDD1] px-3">
+        <span class="size-[11px] rounded-full bg-[#C9BFB0]"></span>
+        <span class="size-[11px] rounded-full bg-[#C9BFB0]"></span>
+        <span class="size-[11px] rounded-full bg-[#C9BFB0]"></span>
+      </div>
+      <div class="h-[270px] bg-white/60"></div>
+    </div>
+    <span class="absolute top-4 right-4 font-mono text-xs text-ink-faint"><%= t("projects.show.screenshot_placeholder") %></span>
+  <% end %>
+</div>

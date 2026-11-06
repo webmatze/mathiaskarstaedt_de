@@ -1,0 +1,16 @@
+<%# The one project that gets the big slot. %>
+<%= link_to project_path(project), class: "flex min-w-0 flex-[1.35_1_560px] flex-col overflow-hidden rounded-[18px] border border-line-strong bg-surface transition-colors hover:border-line-bright" do %>
+  <%= render "projects/screenshot_frame", project: project %>
+
+  <div class="flex flex-col gap-3.5 px-8 pt-7 pb-8">
+    <div class="flex flex-wrap gap-2">
+      <%= kind_badge project.project_kind, extra: project.platforms %>
+      <% if project.price.present? %><%= meta_pill project.price %><% end %>
+    </div>
+    <h3 class="font-display text-[44px] leading-none font-extrabold tracking-[-0.03em]"><%= project.name %></h3>
+    <p class="max-w-[560px] text-[17px] text-ink-soft text-pretty"><%= project.localized_tagline %></p>
+    <span class="inline-flex items-center gap-2 pt-1 text-[15px] font-semibold text-accent-themed">
+      <%= t("projects.card.details") %>
+    </span>
+  </div>
+<% end %>

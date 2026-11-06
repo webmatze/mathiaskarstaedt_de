@@ -1,0 +1,12 @@
+one:
+  terminal_prompt: "~/projects $ ls --sort=new"
+  hero_headline: Web apps, Mac apps, CLI tools and games.
+  hero_intro: Built in Hamburg.
+  about_headline: Day job Rails.
+  about_body: Nights everything else.
+  skills: Ruby on Rails, Swift
+  accent_color: "#D4F25A"
+  imprint_body: Imprint text.
+  privacy_body: Privacy text.
+  translations: <%= { de: { hero_headline: "Web-Apps, Mac-Apps, CLI-Tools und Spiele.",
+                           about_headline: "Tagsüber Rails." } }.to_json %>

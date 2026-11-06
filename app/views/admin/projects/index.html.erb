@@ -1,0 +1,49 @@
+<div class="flex flex-wrap items-center justify-between gap-4 pb-8">
+  <h1 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= t("admin.projects.index.title") %></h1>
+  <div class="flex gap-2">
+    <%= link_to t("admin.nav.github_import"), new_admin_github_import_path, class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4 font-medium" %>
+    <%= link_to t("admin.projects.index.new"), new_admin_project_path, class: "inline-flex min-h-11 items-center rounded-[10px] bg-accent-themed px-4 font-semibold" %>
+  </div>
+</div>
+
+<% if @projects.any? %>
+  <table class="w-full border-collapse text-left text-sm">
+    <thead class="font-mono text-xs tracking-[0.06em] uppercase text-ink-faint">
+      <tr class="border-b border-line-strong">
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.name") %></th>
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.kind") %></th>
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.status") %></th>
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.activity") %></th>
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.german") %></th>
+        <th class="py-3 pr-4 font-medium"><%= t("admin.projects.index.columns.published") %></th>
+        <th class="py-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr class="border-b border-line">
+          <td class="py-3 pr-4">
+            <%= link_to project.name, edit_admin_project_path(project), class: "font-medium hover:text-accent-themed" %>
+            <% if project.featured? %><span class="ml-2 font-mono text-xs text-accent-themed">★</span><% end %>
+            <% if project.github_sync_error.present? %>
+              <span class="ml-2 font-mono text-xs text-kind-mobile" title="<%= project.github_sync_error %>">⚠ GitHub</span>
+            <% end %>
+          </td>
+          <td class="py-3 pr-4"><%= kind_badge project.project_kind %></td>
+          <td class="py-3 pr-4 text-ink-soft"><%= project.status_label %></td>
+          <td class="py-3 pr-4 font-mono text-xs text-ink-meta"><%= month_year project.last_activity_at %></td>
+          <td class="py-3 pr-4 font-mono text-xs <%= project.translated_field_count(:de) == project.translatable_field_count ? "text-status-active" : "text-ink-meta" %>">
+            <%= "#{project.translated_field_count(:de)}/#{project.translatable_field_count}" %>
+          </td>
+          <td class="py-3 pr-4"><%= project.published? ? "●" : "○" %></td>
+          <td class="py-3 text-right">
+            <%= link_to project.published? ? "↗" : "", project.published? ? project_path(project) : "#",
+                  class: "px-2 text-ink-meta hover:text-ink-bright", title: project.name %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="text-ink-faint"><%= t("admin.projects.index.empty") %></p>
+<% end %>

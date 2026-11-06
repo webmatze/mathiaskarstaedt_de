@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for(:title) || "#{t("admin.nav.title")} · #{t("site.name")}" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body style="--accent: <%= site_profile.accent_color %>">
+    <header class="border-b border-line">
+      <nav aria-label="<%= t("admin.nav.title") %>" class="page flex flex-wrap items-center justify-between gap-4 py-4">
+        <div class="flex flex-wrap items-center gap-1">
+          <%= link_to t("admin.nav.title"), admin_root_path, class: "mr-3 font-mono text-[15px] font-medium" %>
+          <%= link_to t("admin.nav.projects"), admin_projects_path, class: "rounded-lg px-3 py-2 text-sm text-ink-soft hover:text-ink-bright" %>
+          <%= link_to t("admin.nav.github_import"), new_admin_github_import_path, class: "rounded-lg px-3 py-2 text-sm text-ink-soft hover:text-ink-bright" %>
+          <%= link_to t("admin.nav.site_profile"), edit_admin_site_profile_path, class: "rounded-lg px-3 py-2 text-sm text-ink-soft hover:text-ink-bright" %>
+        </div>
+        <div class="flex items-center gap-1">
+          <%= link_to t("admin.nav.view_site"), root_path, class: "rounded-lg px-3 py-2 text-sm text-ink-soft hover:text-ink-bright" %>
+          <%= button_to t("admin.nav.sign_out"), session_path, method: :delete, class: "rounded-lg border border-line-bright px-3 py-2 text-sm" %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page py-10">
+      <% if notice %>
+        <p class="mb-6 rounded-lg border border-line-strong bg-surface px-4 py-3 text-sm text-status-active"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="mb-6 rounded-lg border border-kind-mobile/40 bg-surface px-4 py-3 text-sm text-kind-mobile"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

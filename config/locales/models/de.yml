@@ -1,0 +1,82 @@
+de:
+  activerecord:
+    models:
+      project: Projekt
+      project/feature: Funktion
+      project/screenshot: Screenshot
+      project/update: Update
+      project/download: Download
+      project/link: Link
+      project_relation: Verwandtes Projekt
+      site_profile: Seite
+    attributes:
+      project:
+        name: Name
+        slug: Slug
+        tagline: Kurzbeschreibung
+        description: Beschreibung
+        kind: Typ
+        status: Status
+        platforms: Plattformen
+        tech_stack: Technik
+        price: Preis
+        license: Lizenz
+        formats: Formate
+        published: Veröffentlicht
+        featured: Favorit
+        featured_position: Position unter den Favoriten
+        position: Position
+        last_activity_at: Letzte Aktivität
+        homepage_url: Website-URL
+        source_url: Quellcode-URL
+        github_repo: GitHub-Repository
+        locked_fields: Vor GitHub-Sync geschützt
+      project/feature:
+        title: Titel
+        body: Text
+        position: Position
+      project/screenshot:
+        image: Bild
+        caption: Bildunterschrift
+        video_url: Video-URL
+        hero: Hauptbild
+        position: Position
+      project/update:
+        version: Version
+        title: Titel
+        body: Text
+        released_on: Veröffentlicht am
+        state: Status
+        url: URL
+      project/download:
+        label: Bezeichnung
+        url: URL
+        version: Version
+        file_type: Dateityp
+        architecture: Architektur
+        byte_size: Größe in Bytes
+        featured: Haupt-Download
+      project/link:
+        label: Bezeichnung
+        url: URL
+        display_url: Angezeigte URL
+      site_profile:
+        terminal_prompt: Terminal-Prompt
+        hero_headline: Hero-Überschrift
+        hero_intro: Hero-Einleitung
+        about_headline: Über-mich-Überschrift
+        about_body: Über-mich-Text
+        skills: Skills (mit Komma getrennt)
+        accent_color: Akzentfarbe
+        imprint_body: Impressum
+        privacy_body: Datenschutzerklärung
+    errors:
+      models:
+        project:
+          attributes:
+            slug:
+              invalid_slug: darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten
+        project_relation:
+          attributes:
+            related_project:
+              itself: kann nicht das Projekt selbst sein

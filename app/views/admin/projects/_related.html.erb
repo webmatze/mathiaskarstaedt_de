@@ -1,0 +1,22 @@
+<fieldset class="flex flex-col gap-4 rounded-2xl border border-line-strong bg-surface p-6" data-controller="nested-form">
+  <legend class="px-2 font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= t("admin.projects.form.related") %></legend>
+
+  <% choices = Project.where.not(id: project.id).order(:name).pluck(:name, :id) %>
+
+  <div data-nested-form-target="list" class="flex flex-col gap-3">
+    <%= form.fields_for :relations do |nested| %>
+      <%= render "admin/projects/related_row", nested: nested, choices: choices %>
+    <% end %>
+  </div>
+
+  <template data-nested-form-target="template">
+    <%= form.fields_for :relations, ProjectRelation.new, child_index: "NEW_RECORD" do |nested| %>
+      <%= render "admin/projects/related_row", nested: nested, choices: choices %>
+    <% end %>
+  </template>
+
+  <button type="button" data-action="nested-form#add"
+          class="self-start cursor-pointer rounded-[10px] border border-line-bright px-4 py-2 text-sm font-medium">
+    <%= t("admin.projects.form.add") %>
+  </button>
+</fieldset>

@@ -1,0 +1,15 @@
+_fixture:
+  model_class: Project::Feature
+
+panel_mode:
+  project: krazoom
+  title: Panel mode
+  body: Detects the panels on every page.
+  position: 1
+  translations: <%= { de: { title: "Panel-Modus", body: "Erkennt Panels auf jeder Seite." } }.to_json %>
+
+formats:
+  project: krazoom
+  title: Every common format
+  body: CBZ, CBR, PDF and image folders.
+  position: 2

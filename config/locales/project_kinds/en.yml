@@ -1,0 +1,14 @@
+en:
+  project_kinds:
+    website: Website
+    webapp: Web App
+    desktop: Desktop App
+    mobile: Mobile App
+    cli: CLI Tool
+    game: Game
+    library: Library
+  project_statuses:
+    active: Actively developed
+    maintained: Maintained
+    archived: Archived
+    planned: Planned

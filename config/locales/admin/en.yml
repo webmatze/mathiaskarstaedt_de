@@ -1,0 +1,62 @@
+en:
+  admin:
+    nav:
+      title: Admin
+      projects: Projects
+      site_profile: Site
+      github_import: Import from GitHub
+      view_site: View site
+      sign_out: Sign out
+    projects:
+      index:
+        title: Projects
+        new: New project
+        empty: No projects yet.
+        columns:
+          name: Name
+          kind: Type
+          status: Status
+          activity: Last activity
+          german: German
+          published: Published
+      form:
+        basics: Basics
+        fact_sheet: Fact sheet
+        presentation: Presentation
+        github: GitHub
+        translations: German translation
+        translation_hint: Leave a field empty to fall back to the English text.
+        features: Features
+        screenshots: Screenshots
+        updates: Updates
+        downloads: Downloads
+        links: Links
+        related: Related projects
+        add: Add
+        remove: Remove
+        save: Save project
+        english: English
+        german: German
+        german_label: "%{attribute} (German)"
+      sync:
+        now: Sync now
+        queued: GitHub sync queued.
+        never: Never synced
+        last: "Synced %{time}"
+    github_imports:
+      new:
+        title: Import from GitHub
+        hint: Enter a repository as owner/name, for example webmatze/krazoom.
+        repo: Repository
+        submit: Import
+      created: "Imported %{repo}. Check the copy and publish when ready."
+      failed: "Could not import %{repo}: %{error}"
+    site_profile:
+      edit:
+        title: Site
+        save: Save site
+    flash:
+      created: Project created.
+      updated: Project updated.
+      destroyed: Project deleted.
+      profile_updated: Site updated.

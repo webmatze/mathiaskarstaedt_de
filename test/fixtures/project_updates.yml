@@ -1,0 +1,25 @@
+_fixture:
+  model_class: Project::Update
+
+panel_release:
+  project: krazoom
+  version: 1.2.0
+  title: "New: panel mode"
+  body: Panels are detected locally.
+  released_on: <%= Date.new(2026, 10, 20) %>
+  state: released
+  github_release_id: 90001
+  translations: <%= { de: { title: "Neu: Panel-Modus" } }.to_json %>
+
+earlier_release:
+  project: krazoom
+  version: 1.1.0
+  title: Saved searches
+  released_on: <%= Date.new(2026, 8, 14) %>
+  state: released
+  github_release_id: 90000
+
+planned_pro:
+  project: krazoom
+  title: "Pro features"
+  state: planned

@@ -1,0 +1,9 @@
+_fixture:
+  model_class: Project::Screenshot
+
+krazoom_panels:
+  project: krazoom
+  caption: Panel mode
+  hero: true
+  position: 1
+  video_url: https://www.youtube-nocookie.com/embed/example

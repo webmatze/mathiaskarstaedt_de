@@ -1,0 +1,17 @@
+<% content_for :title, "#{@project.name} · #{t("admin.nav.title")}" %>
+<div class="flex flex-wrap items-center justify-between gap-4 pb-8">
+  <h1 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= @project.name %></h1>
+  <div class="flex flex-wrap items-center gap-3">
+    <% if @project.github_connected? %>
+      <span class="font-mono text-xs text-ink-meta">
+        <%= @project.github_synced_at ? t("admin.projects.sync.last", time: time_ago_in_words(@project.github_synced_at)) : t("admin.projects.sync.never") %>
+      </span>
+      <%= button_to t("admin.projects.sync.now"), admin_project_github_sync_path(@project),
+            class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4 text-sm font-medium" %>
+    <% end %>
+    <%= button_to t("admin.projects.form.remove"), admin_project_path(@project), method: :delete,
+          form: { data: { turbo_confirm: "#{@project.name}?" } },
+          class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4 text-sm text-ink-meta" %>
+  </div>
+</div>
+<%= render "form", project: @project %>

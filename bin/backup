@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Backs up everything that is not in git: the SQLite databases and the
+# Active Storage uploads, both of which live in /rails/storage on the server.
+#
+#   bin/backup            → ./backups/mathiaskarstaedt-20261106-2200.tar.gz
+#   bin/backup /some/dir  → writes there instead
+#
+# The databases are copied with `sqlite3 .backup` rather than read straight off
+# disk, so a write in flight cannot produce a torn copy. The raw .sqlite3 files
+# are excluded from the archive for the same reason.
+set -euo pipefail
+
+DESTINATION="${1:-backups}"
+NAME="mathiaskarstaedt-$(date +%Y%m%d-%H%M)"
+
+mkdir -p "$DESTINATION"
+
+echo "Snapshotting the databases and packing /rails/storage…"
+bin/kamal app exec --reuse --quiet "bin/storage-snapshot" > "$DESTINATION/$NAME.tar.gz"
+
+echo "Wrote $DESTINATION/$NAME.tar.gz ($(du -h "$DESTINATION/$NAME.tar.gz" | cut -f1))"
+echo "Restore with: tar -xzf $NAME.tar.gz"

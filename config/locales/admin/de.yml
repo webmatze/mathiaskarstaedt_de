@@ -1,0 +1,62 @@
+de:
+  admin:
+    nav:
+      title: Admin
+      projects: Projekte
+      site_profile: Seite
+      github_import: Von GitHub importieren
+      view_site: Seite ansehen
+      sign_out: Abmelden
+    projects:
+      index:
+        title: Projekte
+        new: Neues Projekt
+        empty: Noch keine Projekte.
+        columns:
+          name: Name
+          kind: Typ
+          status: Status
+          activity: Letzte Aktivität
+          german: Deutsch
+          published: Veröffentlicht
+      form:
+        basics: Grunddaten
+        fact_sheet: Steckbrief
+        presentation: Darstellung
+        github: GitHub
+        translations: Deutsche Übersetzung
+        translation_hint: Leere Felder fallen auf den englischen Text zurück.
+        features: Funktionen
+        screenshots: Screenshots
+        updates: Updates
+        downloads: Downloads
+        links: Links
+        related: Verwandte Projekte
+        add: Hinzufügen
+        remove: Entfernen
+        save: Projekt speichern
+        english: Englisch
+        german: Deutsch
+        german_label: "%{attribute} (Deutsch)"
+      sync:
+        now: Jetzt syncen
+        queued: GitHub-Sync eingereiht.
+        never: Noch nie gesynct
+        last: "Gesynct %{time}"
+    github_imports:
+      new:
+        title: Von GitHub importieren
+        hint: Repository als owner/name eingeben, zum Beispiel webmatze/krazoom.
+        repo: Repository
+        submit: Importieren
+      created: "%{repo} importiert. Texte prüfen und dann veröffentlichen."
+      failed: "%{repo} konnte nicht importiert werden: %{error}"
+    site_profile:
+      edit:
+        title: Seite
+        save: Seite speichern
+    flash:
+      created: Projekt angelegt.
+      updated: Projekt aktualisiert.
+      destroyed: Projekt gelöscht.
+      profile_updated: Seite aktualisiert.

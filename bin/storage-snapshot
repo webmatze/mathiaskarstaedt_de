@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Runs inside the container. Writes a tarball of /rails/storage to stdout:
+# consistent copies of the SQLite databases under databases/, plus the
+# Active Storage files. Used by bin/backup.
+set -euo pipefail
+
+SNAPSHOT="$(mktemp -d)"
+trap 'rm -rf "$SNAPSHOT"' EXIT
+
+mkdir -p "$SNAPSHOT/databases"
+for database in /rails/storage/*.sqlite3; do
+  [ -e "$database" ] || continue
+  sqlite3 "$database" ".backup '$SNAPSHOT/databases/$(basename "$database")'"
+done
+
+tar -czf - \
+  -C "$SNAPSHOT" databases \
+  -C /rails/storage --exclude='*.sqlite3*' .

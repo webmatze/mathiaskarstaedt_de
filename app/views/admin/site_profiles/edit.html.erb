@@ -1,0 +1,28 @@
+<% content_for :title, "#{t("admin.site_profile.edit.title")} · #{t("admin.nav.title")}" %>
+<h1 class="pb-8 font-display text-4xl font-bold tracking-[-0.02em]"><%= t("admin.site_profile.edit.title") %></h1>
+
+<%= form_with model: @site_profile, url: admin_site_profile_path, method: :patch, class: "flex flex-col gap-6" do |form| %>
+  <% if @site_profile.errors.any? %>
+    <div class="rounded-2xl border border-kind-mobile/40 bg-surface p-5">
+      <ul class="flex flex-col gap-1 text-sm text-kind-mobile">
+        <% @site_profile.errors.full_messages.each { |message| %><li><%= message %></li><% } %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.english") do %>
+    <%= admin_field form, :terminal_prompt %>
+    <%= admin_field form, :hero_headline %>
+    <%= admin_field form, :hero_intro, as: :text_area, rows: 4 %>
+    <%= admin_field form, :about_headline %>
+    <%= admin_field form, :about_body, as: :text_area, rows: 6 %>
+    <%= admin_field form, :skills %>
+    <%= admin_field form, :accent_color, as: :color_field %>
+    <%= admin_field form, :imprint_body, as: :text_area, rows: 8, hint: "Markdown" %>
+    <%= admin_field form, :privacy_body, as: :text_area, rows: 8, hint: "Markdown" %>
+  <% end %>
+
+  <%= render "admin/projects/translations", form: form, record: @site_profile %>
+
+  <%= form.submit t("admin.site_profile.edit.save"), class: "self-start inline-flex min-h-12 cursor-pointer items-center rounded-[10px] bg-accent-themed px-6 font-semibold" %>
+<% end %>

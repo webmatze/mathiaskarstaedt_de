@@ -1,0 +1,58 @@
+<% screenshots = project.screenshots.to_a %>
+<section aria-label="<%= t("projects.show.screenshots") %>" class="page flex flex-col gap-4 pb-20"
+         data-controller="gallery">
+  <figure class="relative m-0 flex justify-center overflow-hidden rounded-[20px] border border-line-strong px-[clamp(20px,4vw,56px)] pt-[clamp(20px,4vw,56px)]"
+          style="background: color-mix(in srgb, <%= accent %> 8%, var(--color-canvas))">
+    <% if screenshots.any? %>
+      <% screenshots.each_with_index do |screenshot, index| %>
+        <div data-gallery-target="slide" <%= "hidden" if index.positive? %> class="w-full max-w-[920px]">
+          <% if screenshot.image.attached? %>
+            <%= image_tag screenshot.image.variant(:large),
+                  alt: screenshot.localized_caption.presence || project.name,
+                  loading: index.zero? ? "eager" : "lazy",
+                  class: "w-full rounded-t-xl shadow-[0_40px_80px_rgba(0,0,0,0.5)]" %>
+          <% elsif screenshot.video? %>
+            <div class="aspect-video w-full overflow-hidden rounded-xl">
+              <iframe src="<%= screenshot.video_url %>" title="<%= screenshot.localized_caption.presence || project.name %>"
+                      loading="lazy" allowfullscreen class="size-full border-0"></iframe>
+            </div>
+          <% end %>
+          <% if screenshot.localized_caption.present? %>
+            <figcaption data-gallery-target="caption" class="absolute bottom-4 left-5 rounded-lg bg-canvas/85 px-3 py-1.5 font-mono text-xs text-ink-dim">
+              <%= screenshot.localized_caption %>
+            </figcaption>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="w-full max-w-[920px] overflow-hidden rounded-t-xl bg-[#F4EFE6] shadow-[0_40px_80px_rgba(0,0,0,0.5)]" aria-hidden="true">
+        <div class="flex h-[34px] items-center gap-2 bg-[#E4DDD1] px-3.5">
+          <span class="size-3 rounded-full bg-[#C9BFB0]"></span>
+          <span class="size-3 rounded-full bg-[#C9BFB0]"></span>
+          <span class="size-3 rounded-full bg-[#C9BFB0]"></span>
+        </div>
+        <div class="h-[440px] bg-white/60"></div>
+      </div>
+      <figcaption class="absolute bottom-4 left-5 rounded-lg bg-canvas/85 px-3 py-1.5 font-mono text-xs text-ink-dim">
+        <%= t("projects.show.screenshot_placeholder") %>
+      </figcaption>
+    <% end %>
+  </figure>
+
+  <% if screenshots.many? %>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(180px,100%),1fr))] gap-3">
+      <% screenshots.each_with_index do |screenshot, index| %>
+        <button type="button" data-action="gallery#select" data-gallery-index-param="<%= index %>"
+                data-gallery-target="thumb" aria-pressed="<%= index.zero? %>"
+                class="h-28 cursor-pointer overflow-hidden rounded-xl border bg-surface font-mono text-xs font-medium text-ink-meta aria-pressed:border-2"
+                style="<%= "border-color: #{accent}" if index.zero? %>">
+          <% if screenshot.image.attached? %>
+            <%= image_tag screenshot.image.variant(:thumb), alt: "", loading: "lazy", class: "size-full object-cover" %>
+          <% else %>
+            <%= screenshot.localized_caption.presence || "▶" %>
+          <% end %>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+</section>

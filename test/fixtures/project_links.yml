@@ -1,0 +1,9 @@
+_fixture:
+  model_class: Project::Link
+
+krazoom_website:
+  project: krazoom
+  label: Website
+  url: https://krazoom.app/
+  display_url: krazoom.app
+  position: 1

@@ -1,0 +1,23 @@
+<%# Generic nested-records section: existing rows plus a <template> the
+    nested_form controller clones when "Add" is pressed. %>
+<fieldset class="flex flex-col gap-4 rounded-2xl border border-line-strong bg-surface p-6"
+          data-controller="nested-form">
+  <legend class="px-2 font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= title %></legend>
+
+  <div data-nested-form-target="list" class="flex flex-col gap-4">
+    <%= form.fields_for association do |nested| %>
+      <%= render "admin/projects/nested_row", nested: nested, fields: fields %>
+    <% end %>
+  </div>
+
+  <template data-nested-form-target="template">
+    <%= form.fields_for association, form.object.send(association).new, child_index: "NEW_RECORD" do |nested| %>
+      <%= render "admin/projects/nested_row", nested: nested, fields: fields %>
+    <% end %>
+  </template>
+
+  <button type="button" data-action="nested-form#add"
+          class="self-start cursor-pointer rounded-[10px] border border-line-bright px-4 py-2 text-sm font-medium">
+    <%= t("admin.projects.form.add") %>
+  </button>
+</fieldset>
