@@ -61,4 +61,11 @@ class ProjectTest < ActiveSupport::TestCase
     assert_nil projects(:pagebee).github_url
     assert_equal "https://github.com/webmatze/krazoom", projects(:krazoom).github_url
   end
+  test "a blank repository is stored as nil so two repo-less projects can coexist" do
+    first = Project.create!(name: "One", kind: "website", status: "active", github_repo: "")
+    second = Project.create!(name: "Two", kind: "website", status: "active", github_repo: "")
+
+    assert_nil first.github_repo
+    assert_nil second.github_repo
+  end
 end

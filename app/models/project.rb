@@ -31,6 +31,11 @@ class Project < ApplicationRecord
   # box still sends the key.
   normalizes :locked_fields, with: ->(fields) { Array(fields).compact_blank.map(&:to_s).uniq }
 
+  # The form posts an empty string for projects without a repo. The unique index
+  # only ignores NULL, so a blank has to become one or the second repo-less
+  # project collides with the first.
+  normalizes :github_repo, with: ->(repo) { repo.presence }
+
   before_validation :generate_slug, on: :create
   before_save :default_last_activity_at
 
