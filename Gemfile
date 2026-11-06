@@ -70,4 +70,4 @@ gem "octokit", "~> 10.0"
 
 # Markdown rendering for project descriptions and release notes
 gem "redcarpet", "~> 3.6"
-gem "rouge", "~> 4.5"
+gem "rouge", "~> 5.1"
