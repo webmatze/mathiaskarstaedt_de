@@ -1,0 +1,44 @@
+<section class="mt-10 flex flex-col gap-4">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h2 class="font-display text-2xl font-bold tracking-[-0.02em]"><%= t("admin.podcasts.episodes.title") %></h2>
+    <%= link_to t("admin.podcasts.episodes.new"), new_admin_podcast_episode_path(podcast),
+          class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4 font-medium" %>
+  </div>
+
+  <% if podcast.episodes.any? %>
+    <table class="w-full border-collapse text-left text-sm">
+      <thead class="font-mono text-xs tracking-[0.06em] uppercase text-ink-faint">
+        <tr class="border-b border-line-strong">
+          <th class="py-3 pr-4 font-medium">#</th>
+          <th class="py-3 pr-4 font-medium"><%= t("admin.podcasts.episodes.columns.title") %></th>
+          <th class="py-3 pr-4 font-medium"><%= t("admin.podcasts.episodes.columns.date") %></th>
+          <th class="py-3 pr-4 font-medium"><%= t("admin.podcasts.episodes.columns.audio") %></th>
+          <th class="py-3 pr-4 font-medium"><%= t("admin.podcasts.episodes.columns.video") %></th>
+          <th class="py-3 pr-4 font-medium"><%= t("admin.podcasts.index.columns.german") %></th>
+          <th class="py-3 font-medium"><%= t("admin.podcasts.index.columns.published") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% podcast.episodes.each do |episode| %>
+          <tr class="border-b border-line">
+            <td class="py-3 pr-4 font-mono text-xs text-ink-meta"><%= episode.number %></td>
+            <td class="py-3 pr-4">
+              <%= link_to episode.title, edit_admin_podcast_episode_path(podcast, episode), class: "font-medium hover:text-accent-themed" %>
+            </td>
+            <td class="py-3 pr-4 font-mono text-xs text-ink-meta"><%= month_year episode.published_at %></td>
+            <td class="py-3 pr-4 font-mono text-xs <%= episode.audio.attached? ? "text-status-active" : "text-kind-desktop" %>">
+              <%= episode.audio.attached? ? number_to_human_size(episode.audio.byte_size) : "—" %>
+            </td>
+            <td class="py-3 pr-4 font-mono text-xs text-ink-meta"><%= episode.youtube_id ? "YT" : "—" %></td>
+            <td class="py-3 pr-4 font-mono text-xs <%= episode.translated_field_count(:de) == episode.translatable_field_count ? "text-status-active" : "text-ink-meta" %>">
+              <%= "#{episode.translated_field_count(:de)}/#{episode.translatable_field_count}" %>
+            </td>
+            <td class="py-3"><%= episode.published? ? "●" : "○" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-ink-faint"><%= t("admin.podcasts.episodes.empty") %></p>
+  <% end %>
+</section>

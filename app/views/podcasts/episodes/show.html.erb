@@ -1,0 +1,90 @@
+<% content_for :title, page_title("#{@episode.localized_title} · #{@podcast.title}") %>
+<% content_for :description, @episode.localized_summary %>
+<% content_for :og_title, @episode.localized_title %>
+<% content_for :head do %>
+  <link rel="alternate" type="application/rss+xml" title="<%= @podcast.title %>" href="<%= feed_podcast_url(@podcast, format: :rss) %>">
+<% end %>
+
+<section class="page flex flex-col gap-6 pt-10 pb-10">
+  <nav aria-label="Breadcrumb" class="flex flex-wrap gap-2 font-mono text-[13px] text-ink-faint">
+    <%= link_to t("podcasts.show.breadcrumb_root"), podcasts_path, class: "text-ink-soft" %>
+    <span aria-hidden="true">/</span>
+    <%= link_to @podcast.slug, podcast_path(@podcast), class: "text-ink-soft" %>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page"><%= @episode.slug %></span>
+  </nav>
+
+  <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-ink-meta">
+    <% if (number = episode_number_label(@episode)) %>
+      <span class="rounded-full px-2.5 py-1" style="background: color-mix(in srgb, <%= @podcast.color %> 12%, transparent); color: <%= @podcast.color %>"><%= number %></span>
+    <% end %>
+    <time datetime="<%= @episode.published_at.iso8601 %>"><%= l @episode.published_at.to_date, format: :long %></time>
+    <% if @episode.short_duration %><span><%= @episode.short_duration %></span><% end %>
+  </div>
+
+  <h1 class="max-w-[900px] font-display text-[clamp(34px,5vw,60px)] leading-[1.02] font-extrabold tracking-[-0.035em]"><%= @episode.localized_title %></h1>
+
+  <% if @episode.localized_summary.present? %>
+    <p class="max-w-[680px] text-[clamp(17px,1.6vw,20px)] text-ink-soft text-pretty"><%= @episode.localized_summary %></p>
+  <% end %>
+</section>
+
+<%# The episode itself: the video when there is one, the audio file either way. %>
+<% if @episode.youtube_embed_url %>
+  <section class="page pb-8">
+    <div class="aspect-video overflow-hidden rounded-2xl border border-line-strong bg-band">
+      <iframe src="<%= @episode.youtube_embed_url %>" title="<%= @episode.localized_title %>"
+              class="size-full" loading="lazy" allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+    </div>
+  </section>
+<% end %>
+
+<% if @episode.audio.attached? %>
+  <section class="page pb-10">
+    <%= audio_tag rails_storage_proxy_path(@episode.audio), controls: true, preload: "metadata", class: "w-full" %>
+  </section>
+<% end %>
+
+<section class="page flex flex-wrap gap-14 pb-24">
+  <article class="flex min-w-0 flex-[999_1_560px] flex-col gap-12">
+    <% if @episode.localized_show_notes.present? %>
+      <div class="flex flex-col gap-4.5">
+        <h2 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= t("podcasts.episode.show_notes_title") %></h2>
+        <div class="prose-project flex flex-col gap-4.5 text-lg text-ink-body text-pretty">
+          <%= markdown @episode.localized_show_notes %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @episode.transcript.present? %>
+      <details class="rounded-2xl border border-line-strong bg-surface p-6">
+        <summary class="cursor-pointer font-display text-2xl font-bold tracking-[-0.02em]"><%= t("podcasts.episode.transcript_title") %></summary>
+        <div class="prose-project mt-5 flex flex-col gap-4 text-[15px] text-ink-body">
+          <%= markdown @episode.transcript %>
+        </div>
+      </details>
+    <% end %>
+  </article>
+
+  <aside class="flex flex-[1_1_300px] flex-col gap-5 self-start">
+    <div class="flex flex-col gap-4 rounded-2xl border border-line-strong bg-surface p-6">
+      <h2 class="font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= t("podcasts.episode.subscribe_title") %></h2>
+      <p class="text-sm text-ink-soft"><%= t("podcasts.episode.subscribe_hint", podcast: @podcast.title) %></p>
+      <%= render "podcasts/subscribe", podcast: @podcast %>
+    </div>
+
+    <% if @other_episodes.any? %>
+      <div class="flex flex-col gap-3 rounded-2xl border border-line-strong bg-surface p-6">
+        <h2 class="font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= t("podcasts.episode.more_title") %></h2>
+        <% @other_episodes.each do |other| %>
+          <%= link_to podcast_episode_path(@podcast, other), class: "flex flex-col gap-1 border-t border-line pt-3 first:border-0 first:pt-0" do %>
+            <span class="text-[15px] font-medium"><%= other.localized_title %></span>
+            <span class="font-mono text-xs text-ink-meta"><%= month_year other.published_at %></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </aside>
+</section>

@@ -9,6 +9,8 @@ de:
       project/link: Link
       project_relation: Verwandtes Projekt
       site_profile: Seite
+      podcast: Podcast
+      podcast/episode: Folge
     attributes:
       project:
         name: Name
@@ -60,6 +62,36 @@ de:
         label: Bezeichnung
         url: URL
         display_url: Angezeigte URL
+      podcast:
+        title: Titel
+        slug: Slug
+        tagline: Untertitel
+        description: Beschreibung
+        author: Autor
+        owner_email: Inhaber-E-Mail
+        language: Sprache
+        category: Kategorie
+        explicit: Explizite Inhalte
+        published: Veröffentlicht
+        position: Position
+        youtube_url: YouTube-URL
+        spotify_url: Spotify-URL
+        apple_url: Apple-Podcasts-URL
+        accent_color: Akzentfarbe
+        cover: Cover
+      podcast/episode:
+        title: Titel
+        slug: Slug
+        number: Folgennummer
+        summary: Kurzbeschreibung
+        show_notes: Shownotes
+        transcript: Transkript
+        youtube_url: YouTube-URL
+        published_at: Veröffentlicht am
+        duration_seconds: Länge
+        explicit: Explizite Inhalte
+        published: Veröffentlicht
+        audio: Audiodatei
       site_profile:
         terminal_prompt: Terminal-Prompt
         hero_headline: Hero-Überschrift
@@ -72,6 +104,16 @@ de:
         privacy_body: Datenschutzerklärung
     errors:
       models:
+        podcast:
+          attributes:
+            slug:
+              invalid_slug: darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten
+        podcast/episode:
+          attributes:
+            slug:
+              invalid_slug: darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten
+            audio:
+              invalid_audio: muss eine MP3-, M4A- oder AAC-Datei sein
         project:
           attributes:
             slug:

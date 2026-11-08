@@ -8,6 +8,7 @@
     <div class="flex flex-wrap items-center gap-1 text-[15px]">
       <%= link_to t("layout.favourites"), "#{root_path}#favourites", class: "rounded-lg px-3.5 py-2.5 text-ink-soft hover:text-ink-bright" %>
       <%= link_to t("layout.all_projects"), projects_path, class: "rounded-lg px-3.5 py-2.5 text-ink-soft hover:text-ink-bright" %>
+      <%= link_to t("layout.podcasts"), podcasts_path, class: "rounded-lg px-3.5 py-2.5 text-ink-soft hover:text-ink-bright" %>
       <%= external_link_to t("layout.elbcasts"), "https://elbcasts.dev/", class: "rounded-lg px-3.5 py-2.5 text-ink-soft hover:text-ink-bright" %>
       <%= link_to t("layout.about"), "#{root_path}#about", class: "rounded-lg px-3.5 py-2.5 text-ink-soft hover:text-ink-bright" %>
       <%= external_link_to "https://github.com/webmatze", class: "flex items-center gap-2 rounded-lg border border-line-bright px-4 py-2.5" do %>

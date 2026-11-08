@@ -1,0 +1,67 @@
+<%# The URL is named: Podcast::Episode would otherwise build
+    admin_podcast_podcast_episode_path out of its own namespace. %>
+<%= form_with model: episode, scope: :episode, class: "flex flex-col gap-6",
+      url: episode.persisted? ? admin_podcast_episode_path(podcast, episode) : admin_podcast_episodes_path(podcast) do |form| %>
+  <% if episode.errors.any? %>
+    <div class="rounded-2xl border border-kind-mobile/40 bg-surface p-5">
+      <ul class="flex flex-col gap-1 text-sm text-kind-mobile">
+        <% episode.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.basics") do %>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :title %>
+      <%= admin_field form, :slug, hint: t("admin.podcasts.form.slug_hint") %>
+      <%= admin_field form, :number, as: :number_field %>
+      <%= admin_field form, :published_at, as: :datetime_field, value: episode.published_at&.strftime("%Y-%m-%dT%H:%M") %>
+    </div>
+    <%= admin_field form, :summary, as: :text_area, rows: 3, hint: t("admin.podcasts.episodes.summary_hint") %>
+    <%= admin_field form, :show_notes, as: :text_area, rows: 10, hint: "Markdown" %>
+    <%= admin_field form, :transcript, as: :text_area, rows: 8, hint: t("admin.podcasts.episodes.transcript_hint") %>
+  <% end %>
+
+  <%= admin_section t("admin.podcasts.episodes.media") do %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :audio, class: admin_label_class %>
+      <% if episode.audio.attached? %>
+        <p class="font-mono text-xs text-ink-meta">
+          <%= episode.audio.filename %> · <%= number_to_human_size episode.audio.byte_size %> · <%= episode.audio.content_type %>
+        </p>
+      <% end %>
+      <%= form.file_field :audio, accept: "audio/mpeg,audio/mp4,audio/aac,audio/x-m4a", class: "text-sm text-ink-soft" %>
+      <p class="text-xs text-ink-faint"><%= t("admin.podcasts.episodes.audio_hint") %></p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :youtube_url, as: :url_field, hint: t("admin.podcasts.episodes.youtube_hint") %>
+      <%= admin_field form, :duration_seconds, as: :number_field, hint: t("admin.podcasts.episodes.duration_hint") %>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.presentation") do %>
+    <div class="flex flex-wrap gap-6">
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :published, class: "size-4" %> <%= Podcast::Episode.human_attribute_name(:published) %>
+      </label>
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :explicit, class: "size-4" %> <%= Podcast::Episode.human_attribute_name(:explicit) %>
+      </label>
+    </div>
+  <% end %>
+
+  <%= render "admin/projects/translations", form: form, record: episode %>
+
+  <div class="flex gap-3">
+    <%= form.submit t("admin.podcasts.episodes.save"), class: "inline-flex min-h-12 cursor-pointer items-center rounded-[10px] bg-accent-themed px-6 font-semibold" %>
+    <%= link_to podcast.title, edit_admin_podcast_path(podcast), class: "inline-flex min-h-12 items-center rounded-[10px] border border-line-bright px-5 font-medium" %>
+    <% if episode.persisted? %>
+      <%= button_to t("admin.projects.form.remove"), admin_podcast_episode_path(podcast, episode), method: :delete,
+            form: { data: { turbo_confirm: "#{episode.title}?" } },
+            class: "inline-flex min-h-12 items-center rounded-[10px] border border-line-bright px-5 text-sm text-ink-meta" %>
+    <% end %>
+  </div>
+<% end %>

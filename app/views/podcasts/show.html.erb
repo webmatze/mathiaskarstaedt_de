@@ -1,0 +1,78 @@
+<% content_for :title, page_title(@podcast.title) %>
+<% content_for :description, @podcast.localized_tagline %>
+<% content_for :og_title, @podcast.title %>
+<% if @podcast.cover.attached? %>
+  <% content_for :og_image do %>
+    <meta property="og:image" content="<%= url_for(@podcast.cover.variant(:card)) %>">
+  <% end %>
+<% end %>
+<% content_for :head do %>
+  <link rel="alternate" type="application/rss+xml" title="<%= @podcast.title %>" href="<%= feed_podcast_url(@podcast, format: :rss) %>">
+<% end %>
+
+<section class="page flex flex-col gap-6 pt-10 pb-12">
+  <nav aria-label="Breadcrumb" class="flex flex-wrap gap-2 font-mono text-[13px] text-ink-faint">
+    <%= link_to t("podcasts.show.breadcrumb_root"), podcasts_path, class: "text-ink-soft" %>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page"><%= @podcast.slug %></span>
+  </nav>
+
+  <div class="flex flex-wrap items-end gap-8">
+    <% if @podcast.cover.attached? %>
+      <%= image_tag @podcast.cover.variant(:card), alt: @podcast.title,
+            class: "size-[180px] rounded-2xl border border-line-strong object-cover" %>
+    <% end %>
+    <div class="flex flex-[1_1_480px] flex-col gap-4">
+      <h1 class="font-display text-[clamp(44px,7vw,96px)] leading-[0.95] font-extrabold tracking-[-0.045em]"><%= @podcast.title %></h1>
+      <p class="max-w-[620px] text-[clamp(18px,1.8vw,22px)] text-ink-soft text-pretty"><%= @podcast.localized_tagline %></p>
+    </div>
+  </div>
+
+  <%= render "podcasts/subscribe", podcast: @podcast %>
+</section>
+
+<section class="page flex flex-wrap gap-14 pb-24">
+  <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-12">
+    <% if @podcast.localized_description.present? %>
+      <div class="flex flex-col gap-4.5">
+        <h2 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= t("podcasts.show.about_title") %></h2>
+        <div class="prose-project flex flex-col gap-4.5 text-lg text-ink-body text-pretty">
+          <%= markdown @podcast.localized_description %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col gap-5">
+      <h2 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= t("podcasts.show.episodes_title") %></h2>
+      <% if @episodes.any? %>
+        <div class="flex flex-col gap-3.5">
+          <% @episodes.each do |episode| %>
+            <%= render "podcasts/episode", episode: episode %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-ink-faint"><%= t("podcasts.show.no_episodes") %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <aside class="flex flex-[1_1_300px] flex-col gap-4 self-start rounded-2xl border border-line-strong bg-surface p-6">
+    <h2 class="font-mono text-xs tracking-[0.08em] uppercase text-ink-meta"><%= t("podcasts.show.feed_title") %></h2>
+    <p class="text-sm text-ink-soft"><%= t("podcasts.show.feed_hint") %></p>
+    <code class="overflow-x-auto rounded-lg border border-line bg-canvas px-3 py-2.5 font-mono text-xs text-ink-dim"><%= feed_podcast_url(@podcast, format: :rss) %></code>
+    <dl class="flex flex-col gap-2 font-mono text-xs text-ink-meta">
+      <div class="flex justify-between gap-3">
+        <dt><%= t("podcasts.show.fields.episodes") %></dt>
+        <dd class="text-ink-dim"><%= @episodes.size %></dd>
+      </div>
+      <div class="flex justify-between gap-3">
+        <dt><%= t("podcasts.show.fields.language") %></dt>
+        <dd class="text-ink-dim"><%= @podcast.language.upcase %></dd>
+      </div>
+      <div class="flex justify-between gap-3">
+        <dt><%= t("podcasts.show.fields.category") %></dt>
+        <dd class="text-ink-dim"><%= @podcast.category %></dd>
+      </div>
+    </dl>
+  </aside>
+</section>

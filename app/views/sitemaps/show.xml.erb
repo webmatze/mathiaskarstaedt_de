@@ -8,6 +8,22 @@
     <loc><%= projects_url %></loc>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc><%= podcasts_url %></loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <% @podcasts.each do |podcast| %>
+    <url>
+      <loc><%= podcast_url(podcast) %></loc>
+      <lastmod><%= podcast.updated_at.to_date.iso8601 %></lastmod>
+    </url>
+    <% podcast.published_episodes.each do |episode| %>
+      <url>
+        <loc><%= podcast_episode_url(podcast, episode) %></loc>
+        <lastmod><%= episode.updated_at.to_date.iso8601 %></lastmod>
+      </url>
+    <% end %>
+  <% end %>
   <% @projects.each do |project| %>
     <url>
       <loc><%= project_url(project) %></loc>

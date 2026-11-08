@@ -9,6 +9,9 @@ GitHub, itch.io and their own landing pages.
   glance from a coloured badge, and the colours come from one place: `app/models/project_kind.rb`.
 - **Project pages** — screenshots, description, features, an update timeline, downloads,
   a fact sheet, links and related projects.
+- **Podcasts** — one page per show with its episodes, each episode page with the YouTube
+  video embedded, an audio player, shownotes and a transcript. Every show serves its own
+  RSS feed, which is what the podcast directories subscribe to.
 - **Admin** — create and edit everything, including the German copy.
 - **GitHub** — import a repository, then keep its facts, releases and release assets fresh
   with a nightly sync.
@@ -62,6 +65,37 @@ Create the single admin user:
 ```bash
 ADMIN_EMAIL=you@example.com ADMIN_PASSWORD=… bin/rails db:seed
 ```
+
+## Podcasts
+
+A show lives at `/podcasts/:slug`, its episodes at `/podcasts/:slug/episodes/:slug`, and its
+feed at `/podcasts/:slug/feed` — that last URL is the one submitted to the directories, so it
+must never change. The site is the host: the MP3 is uploaded in **Admin → Podcasts → Episode**
+and goes into Active Storage, and the feed hands it out through a proxy URL (not a redirect
+URL, which expires).
+
+Per show the feed needs an author, an owner e-mail, a language, a category, square cover art
+of at least 1400×1400 px and one published episode with audio. The admin lists what is still
+missing and marks the show `ready` only once a directory would accept it.
+
+Then, once per directory:
+
+1. **Spotify** — [Spotify for Creators](https://creators.spotify.com), "I already have a
+   podcast", paste the feed URL.
+2. **Apple Podcasts** — [Apple Podcasts Connect](https://podcastsconnect.apple.com), same URL.
+   Worth doing even if nobody there listens: several other apps read Apple's index.
+3. **Amazon Music, Deezer, podcast.de, Podcast Index** — all take the same feed URL.
+
+Afterwards paste the resulting show links into the **Directories** section; they become the
+buttons on the show page. Everything else happens through the feed: a new episode appears in
+every app on its own.
+
+The video stays on YouTube. Spotify's own video playback needs the file uploaded through
+Spotify for Creators and does not come from RSS, so the feed carries the audio and the
+episode page embeds the video.
+
+An episode's `<guid>` is built from the record ids rather than the slug, so renaming a slug
+does not make the apps re-download the episode as new.
 
 ## GitHub sync
 

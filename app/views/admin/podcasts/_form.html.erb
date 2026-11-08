@@ -1,0 +1,82 @@
+<%= form_with model: [ :admin, podcast ], class: "flex flex-col gap-6" do |form| %>
+  <% if podcast.errors.any? %>
+    <div class="rounded-2xl border border-kind-mobile/40 bg-surface p-5">
+      <ul class="flex flex-col gap-1 text-sm text-kind-mobile">
+        <% podcast.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.basics") do %>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :title %>
+      <%= admin_field form, :slug, hint: t("admin.podcasts.form.slug_hint") %>
+    </div>
+    <%= admin_field form, :tagline, as: :text_area, rows: 2 %>
+    <%= admin_field form, :description, as: :text_area, rows: 8, hint: "Markdown" %>
+  <% end %>
+
+  <%# Everything a directory checks before it accepts the feed. %>
+  <%= admin_section t("admin.podcasts.form.feed") do %>
+    <% if podcast.persisted? %>
+      <div class="flex flex-col gap-2">
+        <span class="<%= admin_label_class %>"><%= t("admin.podcasts.form.feed_url") %></span>
+        <code class="overflow-x-auto rounded-lg border border-line bg-canvas px-3 py-2.5 font-mono text-xs text-ink-dim"><%= feed_podcast_url(podcast, format: :rss) %></code>
+        <% if podcast.feed_problems.any? %>
+          <p class="text-xs text-kind-desktop">
+            <%= t("admin.podcasts.form.feed_missing", fields: podcast.feed_problems.map { |problem| t("admin.podcasts.feed.problems.#{problem}") }.to_sentence) %>
+          </p>
+        <% else %>
+          <p class="text-xs text-status-active"><%= t("admin.podcasts.form.feed_ok") %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :author %>
+      <%= admin_field form, :owner_email, as: :email_field, hint: t("admin.podcasts.form.owner_email_hint") %>
+      <%= admin_field form, :language, hint: t("admin.podcasts.form.language_hint") %>
+      <%= admin_field form, :category, choices: Podcast::CATEGORIES %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.label :cover, class: admin_label_class %>
+      <% if podcast.cover.attached? %>
+        <%= image_tag podcast.cover.variant(:card), class: "mb-2 size-24 rounded-lg object-cover" %>
+      <% end %>
+      <%= form.file_field :cover, accept: "image/png,image/jpeg", class: "text-sm text-ink-soft" %>
+      <p class="text-xs text-ink-faint"><%= t("admin.podcasts.form.cover_hint") %></p>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.podcasts.form.directories") do %>
+    <p class="text-sm text-ink-faint"><%= t("admin.podcasts.form.directories_hint") %></p>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <%= admin_field form, :youtube_url, as: :url_field %>
+      <%= admin_field form, :spotify_url, as: :url_field %>
+      <%= admin_field form, :apple_url, as: :url_field %>
+      <%= admin_field form, :accent_color, placeholder: site_profile.accent_color %>
+    </div>
+  <% end %>
+
+  <%= admin_section t("admin.projects.form.presentation") do %>
+    <div class="flex flex-wrap gap-6">
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :published, class: "size-4" %> <%= Podcast.human_attribute_name(:published) %>
+      </label>
+      <label class="flex items-center gap-2 text-sm">
+        <%= form.check_box :explicit, class: "size-4" %> <%= Podcast.human_attribute_name(:explicit) %>
+      </label>
+    </div>
+    <%= admin_field form, :position, as: :number_field %>
+  <% end %>
+
+  <%= render "admin/projects/translations", form: form, record: podcast %>
+
+  <div class="flex gap-3">
+    <%= form.submit t("admin.podcasts.form.save"), class: "inline-flex min-h-12 cursor-pointer items-center rounded-[10px] bg-accent-themed px-6 font-semibold" %>
+    <%= link_to t("admin.nav.podcasts"), admin_podcasts_path, class: "inline-flex min-h-12 items-center rounded-[10px] border border-line-bright px-5 font-medium" %>
+  </div>
+<% end %>

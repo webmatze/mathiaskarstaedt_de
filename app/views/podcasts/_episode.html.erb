@@ -1,0 +1,23 @@
+<article class="flex flex-col gap-2.5 rounded-[14px] border border-line-strong bg-surface p-5.5">
+  <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-ink-meta">
+    <% if (number = episode_number_label(episode)) %>
+      <span class="rounded-full px-2.5 py-1" style="background: color-mix(in srgb, <%= episode.podcast.color %> 12%, transparent); color: <%= episode.podcast.color %>"><%= number %></span>
+    <% end %>
+    <time datetime="<%= episode.published_at.iso8601 %>"><%= l episode.published_at.to_date, format: :long %></time>
+    <% if episode.short_duration %><span><%= episode.short_duration %></span><% end %>
+    <% if episode.youtube_id %><span><%= t("podcasts.episode.with_video") %></span><% end %>
+  </div>
+
+  <h3 class="font-display text-[21px] font-bold tracking-[-0.02em]">
+    <%= link_to episode.localized_title, podcast_episode_path(episode.podcast, episode), class: "hover:text-accent-themed" %>
+  </h3>
+
+  <% if episode.localized_summary.present? %>
+    <p class="text-[15px] text-ink-soft text-pretty"><%= episode.localized_summary %></p>
+  <% end %>
+
+  <% if episode.audio.attached? %>
+    <%= audio_tag rails_storage_proxy_path(episode.audio), controls: true, preload: "none",
+          class: "mt-1 w-full" %>
+  <% end %>
+</article>

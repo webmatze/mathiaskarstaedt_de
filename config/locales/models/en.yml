@@ -9,6 +9,8 @@ en:
       project/link: Link
       project_relation: Related project
       site_profile: Site
+      podcast: Podcast
+      podcast/episode: Episode
     attributes:
       project:
         name: Name
@@ -60,6 +62,36 @@ en:
         label: Label
         url: URL
         display_url: Displayed URL
+      podcast:
+        title: Title
+        slug: Slug
+        tagline: Tagline
+        description: Description
+        author: Author
+        owner_email: Owner e-mail
+        language: Language
+        category: Category
+        explicit: Explicit content
+        published: Published
+        position: Position
+        youtube_url: YouTube URL
+        spotify_url: Spotify URL
+        apple_url: Apple Podcasts URL
+        accent_color: Accent colour
+        cover: Cover art
+      podcast/episode:
+        title: Title
+        slug: Slug
+        number: Episode number
+        summary: Summary
+        show_notes: Shownotes
+        transcript: Transcript
+        youtube_url: YouTube URL
+        published_at: Published at
+        duration_seconds: Duration
+        explicit: Explicit content
+        published: Published
+        audio: Audio file
       site_profile:
         terminal_prompt: Terminal prompt
         hero_headline: Hero headline
@@ -72,6 +104,16 @@ en:
         privacy_body: Privacy policy
     errors:
       models:
+        podcast:
+          attributes:
+            slug:
+              invalid_slug: must be lowercase letters, numbers and dashes only
+        podcast/episode:
+          attributes:
+            slug:
+              invalid_slug: must be lowercase letters, numbers and dashes only
+            audio:
+              invalid_audio: must be an MP3, M4A or AAC file
         project:
           attributes:
             slug:

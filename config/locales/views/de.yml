@@ -8,6 +8,7 @@ de:
     main_navigation: Hauptnavigation
     favourites: Favoriten
     all_projects: Alle Projekte
+    podcasts: Podcasts
     elbcasts: Elbcasts
     about: Über mich
     github: GitHub
@@ -79,3 +80,39 @@ de:
         last_update: Letztes Update
         stars: GitHub-Sterne
       download_note: Ältere Versionen und Prüfsummen findest du in den GitHub-Releases.
+  podcasts:
+    index:
+      title: Podcasts
+      subtitle: Gespräche, aufgenommen in Hamburg – auf YouTube als Video, in jeder Podcast-App als Audio.
+      episode_count:
+        zero: Noch keine Folgen
+        one: 1 Folge
+        other: "%{count} Folgen"
+      details: Folgen →
+      empty: Es ist noch keine Show veröffentlicht.
+    show:
+      breadcrumb_root: "~/podcasts"
+      about_title: Worum es geht
+      episodes_title: Folgen
+      no_episodes: Es ist noch keine Folge veröffentlicht.
+      feed_title: Überall abonnieren
+      feed_hint: Diesen Feed in jede Podcast-App einfügen, die oben nicht steht.
+      fields:
+        episodes: Folgen
+        language: Sprache
+        category: Kategorie
+    subscribe:
+      spotify: Spotify
+      apple: Apple Podcasts
+      youtube: YouTube
+      rss: RSS-Feed
+    episode:
+      number: "Folge %{number}"
+      with_video: Video
+      show_notes_title: Shownotes
+      transcript_title: Transkript
+      subscribe_title: Anhören
+      subscribe_hint: "Neue Folgen von %{podcast} landen von allein in deiner Podcast-App."
+      more_title: Weitere Folgen
+    feed:
+      episode_page: Shownotes und Transkript auf der Website

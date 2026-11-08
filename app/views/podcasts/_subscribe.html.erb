@@ -1,0 +1,13 @@
+<%# "Listen on …" — the directories the show is already in, plus the raw feed for
+    every app that is not on the list. %>
+<div class="flex flex-wrap items-center gap-3">
+  <% podcast_subscribe_links(podcast).each_with_index do |(label, url), index| %>
+    <%= external_link_to url, class: [ "inline-flex min-h-[48px] items-center rounded-[10px] px-5 font-medium",
+          index.zero? ? "text-canvas" : "border border-line-bright" ],
+          style: index.zero? ? "background: #{podcast.color}" : nil do %>
+      <%= label %> ↗
+    <% end %>
+  <% end %>
+  <%= link_to t("podcasts.subscribe.rss"), feed_podcast_path(podcast, format: :rss),
+        class: "inline-flex min-h-[48px] items-center rounded-[10px] border border-line-bright px-5 font-mono text-sm text-ink-soft hover:text-ink-bright" %>
+</div>

@@ -8,6 +8,7 @@ en:
     main_navigation: Main navigation
     favourites: Favourites
     all_projects: All projects
+    podcasts: Podcasts
     elbcasts: Elbcasts
     about: About
     github: GitHub
@@ -79,3 +80,39 @@ en:
         last_update: Last update
         stars: GitHub stars
       download_note: Older versions and checksums are in the GitHub releases.
+  podcasts:
+    index:
+      title: Podcasts
+      subtitle: Conversations recorded in Hamburg — on YouTube as video, in every podcast app as audio.
+      episode_count:
+        zero: No episodes yet
+        one: 1 episode
+        other: "%{count} episodes"
+      details: Episodes →
+      empty: No show has been published yet.
+    show:
+      breadcrumb_root: "~/podcasts"
+      about_title: What it is
+      episodes_title: Episodes
+      no_episodes: No episode has been published yet.
+      feed_title: Subscribe anywhere
+      feed_hint: Paste this feed into any podcast app that is not listed above.
+      fields:
+        episodes: Episodes
+        language: Language
+        category: Category
+    subscribe:
+      spotify: Spotify
+      apple: Apple Podcasts
+      youtube: YouTube
+      rss: RSS feed
+    episode:
+      number: "Episode %{number}"
+      with_video: Video
+      show_notes_title: Shownotes
+      transcript_title: Transcript
+      subscribe_title: Listen
+      subscribe_hint: "New episodes of %{podcast} land in your podcast app on their own."
+      more_title: More episodes
+    feed:
+      episode_page: Shownotes and transcript on the website

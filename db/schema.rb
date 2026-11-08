@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_203003) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_08_120000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,50 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_203003) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "podcast_episodes", force: :cascade do |t|
+    t.integer "podcast_id", null: false
+    t.string "slug", null: false
+    t.integer "number"
+    t.string "title", null: false
+    t.text "summary"
+    t.text "show_notes"
+    t.text "transcript"
+    t.string "youtube_url"
+    t.datetime "published_at"
+    t.integer "duration_seconds"
+    t.boolean "explicit", default: false, null: false
+    t.boolean "published", default: false, null: false
+    t.json "translations", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["podcast_id", "published", "published_at"], name: "idx_on_podcast_id_published_published_at_d51652709c"
+    t.index ["podcast_id", "slug"], name: "index_podcast_episodes_on_podcast_id_and_slug", unique: true
+    t.index ["podcast_id"], name: "index_podcast_episodes_on_podcast_id"
+  end
+
+  create_table "podcasts", force: :cascade do |t|
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.string "tagline"
+    t.text "description"
+    t.string "author"
+    t.string "owner_email"
+    t.string "language", default: "de", null: false
+    t.string "category", default: "Technology", null: false
+    t.boolean "explicit", default: false, null: false
+    t.boolean "published", default: false, null: false
+    t.integer "position"
+    t.string "youtube_url"
+    t.string "spotify_url"
+    t.string "apple_url"
+    t.string "accent_color"
+    t.json "translations", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published", "position"], name: "index_podcasts_on_published_and_position"
+    t.index ["slug"], name: "index_podcasts_on_slug", unique: true
   end
 
   create_table "project_downloads", force: :cascade do |t|
@@ -184,6 +228,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_203003) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "podcast_episodes", "podcasts"
   add_foreign_key "project_downloads", "projects"
   add_foreign_key "project_features", "projects"
   add_foreign_key "project_links", "projects"

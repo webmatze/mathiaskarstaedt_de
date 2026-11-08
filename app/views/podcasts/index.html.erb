@@ -1,0 +1,44 @@
+<% content_for :title, page_title(t("podcasts.index.title")) %>
+<% content_for :description, t("podcasts.index.subtitle") %>
+
+<section class="page flex flex-col gap-7 pt-16 pb-12">
+  <h1 class="font-display text-[clamp(36px,5vw,64px)] font-extrabold tracking-[-0.03em]"><%= t("podcasts.index.title") %></h1>
+  <p class="max-w-[680px] text-[clamp(17px,1.6vw,20px)] text-ink-soft text-pretty"><%= t("podcasts.index.subtitle") %></p>
+</section>
+
+<section class="page pb-24">
+  <% if @podcasts.any? %>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] gap-4">
+      <% @podcasts.each do |podcast| %>
+        <article class="flex flex-col gap-4 rounded-2xl border border-line-strong bg-surface p-6">
+          <div class="flex items-start gap-4">
+            <% if podcast.cover.attached? %>
+              <%= image_tag podcast.cover.variant(:card), alt: podcast.title,
+                    class: "size-20 shrink-0 rounded-xl object-cover", loading: "lazy" %>
+            <% else %>
+              <span class="flex size-20 shrink-0 items-center justify-center rounded-xl border border-line-bright font-mono text-xs text-ink-ghost" aria-hidden="true">RSS</span>
+            <% end %>
+            <div class="flex min-w-0 flex-col gap-1.5">
+              <h2 class="font-display text-[23px] font-bold tracking-[-0.02em]">
+                <%= link_to podcast.title, podcast_path(podcast), class: "hover:text-accent-themed" %>
+              </h2>
+              <p class="text-[15px] text-ink-soft text-pretty"><%= podcast.localized_tagline %></p>
+            </div>
+          </div>
+
+          <p class="font-mono text-xs text-ink-meta">
+            <%= t("podcasts.index.episode_count", count: podcast.published_episodes.size) %>
+            <% if (date = podcast.last_published_at) %>
+              · <%= month_year date %>
+            <% end %>
+          </p>
+
+          <%= link_to t("podcasts.index.details"), podcast_path(podcast),
+                class: "self-start font-mono text-[13px] text-accent-themed" %>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-ink-faint"><%= t("podcasts.index.empty") %></p>
+  <% end %>
+</section>

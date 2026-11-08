@@ -1,0 +1,10 @@
+<% content_for :title, "#{@podcast.title} · #{t("admin.nav.title")}" %>
+<div class="flex flex-wrap items-center justify-between gap-4 pb-8">
+  <h1 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= @podcast.title %></h1>
+  <%= button_to t("admin.projects.form.remove"), admin_podcast_path(@podcast), method: :delete,
+        form: { data: { turbo_confirm: "#{@podcast.title}?" } },
+        class: "inline-flex min-h-11 items-center rounded-[10px] border border-line-bright px-4 text-sm text-ink-meta" %>
+</div>
+
+<%= render "form", podcast: @podcast %>
+<%= render "episodes", podcast: @podcast %>

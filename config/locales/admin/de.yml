@@ -3,6 +3,7 @@ de:
     nav:
       title: Admin
       projects: Projekte
+      podcasts: Podcasts
       site_profile: Seite
       github_import: Von GitHub importieren
       view_site: Seite ansehen
@@ -51,6 +52,55 @@ de:
         submit: Importieren
       created: "%{repo} importiert. Texte prüfen und dann veröffentlichen."
       failed: "%{repo} konnte nicht importiert werden: %{error}"
+    podcasts:
+      index:
+        title: Podcasts
+        new: Neuer Podcast
+        empty: Noch kein Podcast.
+        columns:
+          title: Titel
+          episodes: Folgen
+          german: Deutsch
+          feed: Feed
+          published: Veröffentlicht
+      form:
+        feed: Feed-Metadaten
+        feed_url: Feed-URL
+        feed_ok: Vollständig – dieser Feed kann bei Spotify und Apple Podcasts eingereicht werden.
+        feed_missing: "Fehlt noch, bevor ein Verzeichnis den Feed annimmt: %{fields}."
+        directories: Verzeichnisse
+        directories_hint: Einträgen, sobald die Show angenommen ist; jeder Link wird zu einem Button auf der Seite.
+        slug_hint: Nur Kleinbuchstaben, Zahlen und Bindestriche.
+        owner_email_hint: Über diese Adresse prüfen Apple und Spotify die Inhaberschaft. Nicht auf der Seite sichtbar.
+        language_hint: "Sprach-Tag des Feeds, zum Beispiel de oder en."
+        cover_hint: Quadratisch, mindestens 1400×1400, idealerweise 3000×3000 px. JPEG oder PNG.
+        save: Podcast speichern
+      feed:
+        ready: bereit
+        incomplete: unvollständig
+        problems:
+          cover: Cover
+          author: Autor
+          owner_email: Inhaber-E-Mail
+          description: Beschreibung
+          episodes: eine veröffentlichte Folge
+          audio: eine Audiodatei
+      episodes:
+        title: Folgen
+        new: Neue Folge
+        empty: Noch keine Folge.
+        save: Folge speichern
+        media: Audio und Video
+        audio_hint: Die MP3, die die Podcast-Apps abspielen. Genau diese Datei gibt der Feed an Spotify.
+        youtube_hint: Die YouTube-URL derselben Folge – sie wird auf der Folgenseite eingebettet.
+        duration_hint: Länge in Sekunden.
+        summary_hint: Ein bis zwei Sätze. In den Podcast-Apps die Beschreibung der Folge.
+        transcript_hint: Markdown. Auf der Folgenseite eingeklappt und von Suchmaschinen indexiert.
+        columns:
+          title: Titel
+          date: Datum
+          audio: Audio
+          video: Video
     site_profile:
       edit:
         title: Seite
@@ -60,3 +110,9 @@ de:
       updated: Projekt aktualisiert.
       destroyed: Projekt gelöscht.
       profile_updated: Seite aktualisiert.
+      podcast_created: Podcast angelegt.
+      podcast_updated: Podcast gespeichert.
+      podcast_destroyed: Podcast gelöscht.
+      episode_created: Folge angelegt.
+      episode_updated: Folge gespeichert.
+      episode_destroyed: Folge gelöscht.

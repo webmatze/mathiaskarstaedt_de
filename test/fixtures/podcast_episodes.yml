@@ -1,0 +1,35 @@
+_fixture:
+  model_class: Podcast::Episode
+
+first:
+  podcast: rails_am_abend
+  slug: warum-rails
+  number: 1
+  title: Why Rails in 2026
+  summary: "Where Rails still wins and where it does not."
+  show_notes: "Links and timestamps for the first episode."
+  transcript: "Welcome to the first episode."
+  youtube_url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  published_at: <%= Time.utc(2026, 10, 2, 7, 0) %>
+  duration_seconds: 3671
+  published: true
+  translations: <%= { de: { title: "Warum Rails im Jahr 2026",
+                           summary: "Wo Rails noch gewinnt und wo nicht.",
+                           show_notes: "Links und Zeitmarken zur ersten Folge." } }.to_json %>
+
+second:
+  podcast: rails_am_abend
+  slug: hotwire
+  number: 2
+  title: Hotwire all the way
+  summary: "Turbo, Stimme and what we would not do again."
+  published_at: <%= Time.utc(2026, 10, 30, 7, 0) %>
+  duration_seconds: 2400
+  published: true
+
+unpublished:
+  podcast: rails_am_abend
+  slug: kommt-noch
+  number: 3
+  title: Not recorded yet
+  published: false

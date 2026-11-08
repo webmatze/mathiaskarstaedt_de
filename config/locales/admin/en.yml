@@ -3,6 +3,7 @@ en:
     nav:
       title: Admin
       projects: Projects
+      podcasts: Podcasts
       site_profile: Site
       github_import: Import from GitHub
       view_site: View site
@@ -51,6 +52,55 @@ en:
         submit: Import
       created: "Imported %{repo}. Check the copy and publish when ready."
       failed: "Could not import %{repo}: %{error}"
+    podcasts:
+      index:
+        title: Podcasts
+        new: New podcast
+        empty: No podcast yet.
+        columns:
+          title: Title
+          episodes: Episodes
+          german: German
+          feed: Feed
+          published: Published
+      form:
+        feed: Feed metadata
+        feed_url: Feed URL
+        feed_ok: Complete — this feed can be submitted to Spotify and Apple Podcasts.
+        feed_missing: "Still missing before a directory accepts the feed: %{fields}."
+        directories: Directories
+        directories_hint: Filled in once the show has been accepted; each link becomes a button on the page.
+        slug_hint: Lowercase letters, numbers and dashes only.
+        owner_email_hint: Apple and Spotify verify ownership with this address. Not shown on the site.
+        language_hint: "The feed's language tag, for example de or en."
+        cover_hint: Square, at least 1400×1400, ideally 3000×3000 px. JPEG or PNG.
+        save: Save podcast
+      feed:
+        ready: ready
+        incomplete: incomplete
+        problems:
+          cover: cover art
+          author: author
+          owner_email: owner e-mail
+          description: description
+          episodes: a published episode
+          audio: an audio file
+      episodes:
+        title: Episodes
+        new: New episode
+        empty: No episode yet.
+        save: Save episode
+        media: Audio and video
+        audio_hint: The MP3 the podcast apps play. This file is what the feed hands to Spotify.
+        youtube_hint: The YouTube URL of the same episode — it gets embedded on the episode page.
+        duration_hint: Length in seconds.
+        summary_hint: One or two sentences. Shown in the podcast apps as the episode description.
+        transcript_hint: Markdown. Shown collapsed on the episode page and indexed by search engines.
+        columns:
+          title: Title
+          date: Date
+          audio: Audio
+          video: Video
     site_profile:
       edit:
         title: Site
@@ -60,3 +110,9 @@ en:
       updated: Project updated.
       destroyed: Project deleted.
       profile_updated: Site updated.
+      podcast_created: Podcast created.
+      podcast_updated: Podcast updated.
+      podcast_destroyed: Podcast deleted.
+      episode_created: Episode created.
+      episode_updated: Episode updated.
+      episode_destroyed: Episode deleted.

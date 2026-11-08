@@ -1,0 +1,8 @@
+<% content_for :title, "#{@episode.title} · #{@podcast.title}" %>
+<div class="flex flex-wrap items-center justify-between gap-4 pb-8">
+  <h1 class="font-display text-4xl font-bold tracking-[-0.02em]"><%= @episode.title %></h1>
+  <% if @episode.published? && @podcast.published? %>
+    <%= link_to "↗", podcast_episode_path(@podcast, @episode), class: "px-2 text-ink-meta hover:text-ink-bright" %>
+  <% end %>
+</div>
+<%= render "form", podcast: @podcast, episode: @episode %>

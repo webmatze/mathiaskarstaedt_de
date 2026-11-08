@@ -1,0 +1,23 @@
+rails_am_abend:
+  slug: rails-am-abend
+  title: Rails am Abend
+  tagline: Two developers, one Rails app, every other week.
+  description: "A conversation about building Rails apps after hours."
+  author: Mathias Karstädt
+  owner_email: podcast@mathiaskarstaedt.de
+  language: de
+  category: Technology
+  published: true
+  position: 1
+  youtube_url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  spotify_url: https://open.spotify.com/show/example
+  translations: <%= { de: { tagline: "Zwei Entwickler, eine Rails-App, alle zwei Wochen.",
+                           description: "Ein Gespräch über Rails-Apps, die nach der Arbeit entstehen." } }.to_json %>
+
+draft_show:
+  slug: draft-show
+  title: Draft Show
+  tagline: Not out yet.
+  language: en
+  category: Technology
+  published: false
