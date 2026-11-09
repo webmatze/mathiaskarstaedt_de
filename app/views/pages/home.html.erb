@@ -1,7 +1,10 @@
 <% content_for :title, page_title(nil) %>
 
-<%# HERO %>
-<section class="page flex flex-col gap-7 pt-[clamp(56px,9vw,120px)] pb-16">
+<%# HERO — the canvas behind it is drawn by the ascii-hero controller %>
+<div class="relative overflow-hidden" data-controller="ascii-hero" data-ascii-hero-colors-value="<%= @kinds.map(&:color).to_json %>">
+<canvas data-ascii-hero-target="canvas" aria-hidden="true" class="pointer-events-none absolute inset-0 size-full font-mono [mask-image:linear-gradient(to_bottom,#000_72%,transparent)]"></canvas>
+<p data-ascii-hero-target="stats" aria-hidden="true" class="absolute right-[clamp(16px,4vw,40px)] bottom-5 hidden font-mono text-[11px] tracking-[0.04em] whitespace-nowrap text-ink-faint md:block"></p>
+<section class="page relative flex flex-col gap-7 pt-[clamp(56px,9vw,120px)] pb-16">
   <p class="font-mono text-sm text-accent-themed"><%= site_profile.localized_terminal_prompt.presence || t("pages.home.terminal_prompt") %></p>
   <h1 class="max-w-[1080px] font-display text-[clamp(44px,7.4vw,104px)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance">
     <%= site_profile.localized_hero_headline.presence || t("pages.home.headline") %>
@@ -17,6 +20,7 @@
     <%= external_link_to t("pages.home.screencasts"), "https://elbcasts.dev/", class: "inline-flex min-h-12 items-center gap-2.5 rounded-[10px] border border-line-bright px-[22px] font-medium" %>
   </div>
 </section>
+</div>
 
 <%# TYPE LEGEND %>
 <section aria-labelledby="legend">
