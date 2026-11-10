@@ -9,7 +9,7 @@ class ProjectsController < PublicController
     @project = Project.published.includes(
       :features, :updates, :downloads, :links,
       screenshots: { image_attachment: :blob },
-      related_projects: :screenshots
+      related_projects: { screenshots: { image_attachment: :blob } }
     ).find_by!(slug: params[:slug])
   end
 end

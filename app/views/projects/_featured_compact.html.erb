@@ -1,8 +1,7 @@
-<%# The smaller favourite cards stacked next to the hero card. A project with a
-    screenshot shows its top left corner in a side panel, cut off by the card. %>
-<% screenshot = project.hero_screenshot %>
-<%= link_to project_path(project), class: "group flex flex-auto overflow-hidden rounded-[18px] border border-line-strong bg-surface transition-colors hover:border-line-bright" do %>
-  <div class="flex min-w-0 flex-1 flex-col gap-3 px-7 py-6">
+<%# The smaller favourite cards stacked next to the hero card. %>
+<% screenshot = project.hero_screenshot if project.hero_screenshot&.image&.attached? %>
+<%= link_to project_path(project), class: "group relative flex flex-auto overflow-hidden rounded-[18px] border border-line-strong bg-surface transition-colors hover:border-line-bright" do %>
+  <div class="flex min-w-0 flex-1 flex-col gap-3 px-7 py-6 <%= "sm:pr-[calc(20%+1.75rem)]" if screenshot %>">
     <div class="flex items-center justify-between gap-3">
       <%= kind_badge project.project_kind %>
       <span class="font-mono text-xs text-ink-faint"><%= project.tech_stack.presence || month_year(project.last_activity_at) %></span>
@@ -11,11 +10,5 @@
     <p class="text-[15px] text-ink-soft text-pretty"><%= project.localized_tagline %></p>
   </div>
 
-  <% if screenshot&.image&.attached? %>
-    <div class="relative hidden w-[40%] shrink-0 overflow-hidden border-l border-line-strong sm:block" aria-hidden="true"
-         style="background: color-mix(in srgb, <%= project.project_kind.color %> 8%, var(--color-canvas))">
-      <%= image_tag screenshot.image.variant(:card), alt: "", loading: "lazy",
-            class: "absolute top-7 left-7 w-[440px] max-w-none rounded-tl-[10px] opacity-75 shadow-[0_20px_40px_rgba(0,0,0,0.45)] transition-opacity duration-300 group-hover:opacity-100" %>
-    </div>
-  <% end %>
+  <%= render "projects/screenshot_panel", project: project, screenshot: screenshot if screenshot %>
 <% end %>

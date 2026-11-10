@@ -85,10 +85,12 @@
       <h2 id="related-heading" class="font-display text-[32px] font-bold tracking-[-0.02em]"><%= t("projects.show.related_title") %></h2>
       <div class="grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] gap-4">
         <% @project.related_projects.each do |related| %>
-          <%= link_to project_path(related), class: "flex flex-col gap-2.5 rounded-2xl border border-line-strong bg-surface-raised p-6 transition-colors hover:border-line-bright" do %>
+          <% screenshot = related.hero_screenshot if related.hero_screenshot&.image&.attached? %>
+          <%= link_to project_path(related), class: "group relative flex flex-col gap-2.5 overflow-hidden rounded-2xl border border-line-strong bg-surface-raised p-6 transition-colors hover:border-line-bright #{"sm:pr-[calc(20%+1.5rem)]" if screenshot}" do %>
             <span class="self-start"><%= kind_badge related.project_kind %></span>
             <h3 class="font-display text-[23px] font-bold"><%= related.name %></h3>
             <p class="text-[15px] text-ink-soft"><%= related.localized_tagline %></p>
+            <%= render "projects/screenshot_panel", project: related, screenshot: screenshot if screenshot %>
           <% end %>
         <% end %>
       </div>

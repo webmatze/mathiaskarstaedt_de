@@ -1,8 +1,7 @@
-<%# The standard card in the "latest projects" grid. A project with a screenshot
-    shows its top left corner in a side panel, like the compact favourite cards. %>
-<% screenshot = project.hero_screenshot %>
-<%= link_to project_path(project), class: "group flex min-h-[220px] overflow-hidden rounded-2xl border border-line-strong bg-surface-raised transition-colors hover:border-line-bright" do %>
-  <div class="flex min-w-0 flex-1 flex-col gap-3 p-6">
+<%# The standard card in the "latest projects" grid. %>
+<% screenshot = project.hero_screenshot if project.hero_screenshot&.image&.attached? %>
+<%= link_to project_path(project), class: "group relative flex min-h-[220px] overflow-hidden rounded-2xl border border-line-strong bg-surface-raised transition-colors hover:border-line-bright" do %>
+  <div class="flex min-w-0 flex-1 flex-col gap-3 p-6 <%= "sm:pr-[calc(20%+1.5rem)]" if screenshot %>">
     <div class="flex items-center justify-between gap-3">
       <%= kind_badge project.project_kind %>
       <span class="font-mono text-xs whitespace-nowrap text-ink-faint"><%= month_year project.last_activity_at %></span>
@@ -17,11 +16,5 @@
     </div>
   </div>
 
-  <% if screenshot&.image&.attached? %>
-    <div class="relative hidden w-[32%] shrink-0 overflow-hidden border-l border-line-strong sm:block" aria-hidden="true"
-         style="background: color-mix(in srgb, <%= project.project_kind.color %> 8%, var(--color-canvas))">
-      <%= image_tag screenshot.image.variant(:card), alt: "", loading: "lazy",
-            class: "absolute top-6 left-5 w-[380px] max-w-none rounded-tl-lg opacity-75 shadow-[0_20px_40px_rgba(0,0,0,0.45)] transition-opacity duration-300 group-hover:opacity-100" %>
-    </div>
-  <% end %>
+  <%= render "projects/screenshot_panel", project: project, screenshot: screenshot if screenshot %>
 <% end %>

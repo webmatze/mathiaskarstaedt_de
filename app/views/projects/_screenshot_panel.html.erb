@@ -1,0 +1,9 @@
+<%# A sliver of the screenshot on the right edge of a project card, widening
+    when the card is hovered. The card has to be `group relative overflow-hidden`
+    and keep its text clear of the resting 20%. The panel lies over the text
+    column, so widening it reflows nothing. %>
+<div class="absolute inset-y-0 right-0 hidden w-1/5 overflow-hidden border-l border-line-strong transition-[width] duration-300 ease-out group-hover:w-2/3 motion-reduce:transition-none sm:block" aria-hidden="true"
+     style="background: color-mix(in srgb, <%= project.project_kind.color %> 8%, var(--color-canvas))">
+  <%= image_tag screenshot.image.variant(:card), alt: "", loading: "lazy",
+        class: "absolute top-6 left-4 w-[440px] max-w-none rounded-tl-lg opacity-75 shadow-[0_20px_40px_rgba(0,0,0,0.45)] transition-opacity duration-300 group-hover:opacity-100" %>
+</div>
