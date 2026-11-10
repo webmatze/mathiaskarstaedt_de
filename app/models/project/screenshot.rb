@@ -6,6 +6,7 @@ class Project::Screenshot < ApplicationRecord
   belongs_to :project
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_fill: [ 480, 300 ], format: :webp, saver: { quality: 80 }
+    attachable.variant :card, resize_to_limit: [ 960, 720 ], format: :webp, saver: { quality: 80 }
     attachable.variant :large, resize_to_limit: [ 1840, 1400 ], format: :webp, saver: { quality: 82 }
   end
 

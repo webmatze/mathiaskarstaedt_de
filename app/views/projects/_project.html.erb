@@ -1,15 +1,27 @@
-<%# The standard card in the "latest projects" grid. %>
-<%= link_to project_path(project), class: "group flex min-h-[220px] flex-col gap-3 rounded-2xl border border-line-strong bg-surface-raised p-6 transition-colors hover:border-line-bright" do %>
-  <div class="flex items-center justify-between gap-3">
-    <%= kind_badge project.project_kind %>
-    <span class="font-mono text-xs text-ink-faint"><%= month_year project.last_activity_at %></span>
+<%# The standard card in the "latest projects" grid. A project with a screenshot
+    shows its top left corner in a side panel, like the compact favourite cards. %>
+<% screenshot = project.hero_screenshot %>
+<%= link_to project_path(project), class: "group flex min-h-[220px] overflow-hidden rounded-2xl border border-line-strong bg-surface-raised transition-colors hover:border-line-bright" do %>
+  <div class="flex min-w-0 flex-1 flex-col gap-3 p-6">
+    <div class="flex items-center justify-between gap-3">
+      <%= kind_badge project.project_kind %>
+      <span class="font-mono text-xs whitespace-nowrap text-ink-faint"><%= month_year project.last_activity_at %></span>
+    </div>
+
+    <h3 class="font-display text-[23px] font-bold tracking-[-0.015em]"><%= project.name %></h3>
+    <p class="flex-1 text-[15px] text-ink-soft text-pretty"><%= project.localized_tagline %></p>
+
+    <div class="flex items-center justify-between gap-3 border-t border-line-strong pt-3">
+      <span class="font-mono text-xs text-ink-meta"><%= project.tech_stack %></span>
+      <span class="text-sm font-semibold whitespace-nowrap text-accent-themed"><%= t("projects.card.details") %></span>
+    </div>
   </div>
 
-  <h3 class="font-display text-[23px] font-bold tracking-[-0.015em]"><%= project.name %></h3>
-  <p class="flex-1 text-[15px] text-ink-soft text-pretty"><%= project.localized_tagline %></p>
-
-  <div class="flex items-center justify-between gap-3 border-t border-line-strong pt-3">
-    <span class="font-mono text-xs text-ink-meta"><%= project.tech_stack %></span>
-    <span class="text-sm font-semibold text-accent-themed"><%= t("projects.card.details") %></span>
-  </div>
+  <% if screenshot&.image&.attached? %>
+    <div class="relative hidden w-[32%] shrink-0 overflow-hidden border-l border-line-strong sm:block" aria-hidden="true"
+         style="background: color-mix(in srgb, <%= project.project_kind.color %> 8%, var(--color-canvas))">
+      <%= image_tag screenshot.image.variant(:card), alt: "", loading: "lazy",
+            class: "absolute top-6 left-5 w-[380px] max-w-none rounded-tl-lg opacity-75 shadow-[0_20px_40px_rgba(0,0,0,0.45)] transition-opacity duration-300 group-hover:opacity-100" %>
+    </div>
+  <% end %>
 <% end %>
