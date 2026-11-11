@@ -14,7 +14,7 @@ module Github
 
       if project.new_record?
         name = @repo.split("/").last
-        project.assign_attributes(name: name.humanize.titleize, slug: name.parameterize,
+        project.assign_attributes(name: name.humanize.titleize,
           kind: "library", status: "active", published: false)
         project.save!
       end
